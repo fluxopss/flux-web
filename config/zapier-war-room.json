@@ -4,7 +4,9 @@
   "primary_slack_channel": {
     "id": "C0BDLF5JUQ4",
     "name": "#war-room",
-    "purpose": "ALL Zapier deal ops: digests, audits, pipeline status, closes, alerts"
+    "purpose": "SALES HYPE — keep Jonathan + Heaven locked in. Post aggressively, multiple messages per run.",
+    "bot_username": "War Room",
+    "posting_policy": "hype_first_multiple_posts"
   },
   "secondary_slack_channels": {
     "sold_clients": {

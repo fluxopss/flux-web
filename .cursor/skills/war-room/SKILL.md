@@ -1,47 +1,66 @@
 ---
 name: war-room
-description: Flux Labs War Room command center — all deal ops, audits, closes, and Comet handoffs post to #war-room. Use when user says war room, let's do it, or execute pipeline.
+description: Flux Labs War Room — SALES HYPE channel for Jonathan + Heaven. Post aggressively to #war-room. Deals, money, scoreboard, close alerts, motivation. Use on every deal ops run.
 ---
 
-# War Room — Command Center
+# War Room — Sales Hype Command Center
 
-All revenue operations report to `#war-room` (`C0BDLF5JUQ4`).
+`#war-room` (`C0BDLF5JUQ4`) is the **sales hype channel** for Jonathan + Heaven.
 
-## Channel Routing
-- **#war-room** — live pipeline, audits, closes, Comet handoffs, daily digest
-- **#sold-clients** — contract signed + onboarding only
-- **#project-update** — engineering/build updates only (not deal ops)
+**Post as much as possible.** Keep leadership locked in, hyped, and closing.
 
-## Kickoff Sequence (Run in Order)
+## Channel Identity
 
-1. `deal-orchestrator` mode `digest` → post to war-room
-2. `deal-orchestrator` mode `audit` → post gaps to war-room
-3. `deal-orchestrator` mode `enrichment_queue` → post Comet scrape list to war-room
-4. `deal-orchestrator` mode `verify_close` on pitched refs FLA-2026-102–106
-5. On any Stripe payment → post to war-room + sold-clients
+| Channel | Purpose |
+|---------|---------|
+| **#war-room** | 🔥 SALES HYPE — deals, $ at stake, scoreboard, close alerts, motivation, pipeline wins |
+| **#sold-clients** | Contract signed + onboarding handoff only |
+| **#project-update** | Engineering/build only — NEVER deal ops |
 
-## Live Board Format (Post to War Room)
+## What to Post (Always)
 
-```
-WAR ROOM LIVE — [timestamp ET]
+Post **multiple messages** per run — not one summary:
 
-PITCHED (GHL wf_03 — hands off)
-[list FLA refs, company, offer, $ at stake]
+1. **Hype opener** — energy, $ at stake, call to action
+2. **Deal-by-deal breakdown** — every pitched ref with offer + value + why it closes
+3. **Scoreboard** — clients, leads, pitched, closed, revenue math
+4. **Talking points** — objection killers, booking link
+5. **30-day math** — what winning looks like in dollars
+6. **Next target** — pick ONE deal to push today
+7. **Pipeline heat** — top warming leads, next wave coming
 
-ENRICHMENT QUEUE (Comet scrape)
-[list with website URLs and status]
+## Hype Posting Rules
 
-PAYMENTS (Stripe watch)
-[paid / pending per FLA ref]
+- Use 🔥💰🚀🏆⚡ liberally — this is a hype channel
+- Always include **dollar amounts** and **FLA refs**
+- Tag Jonathan (`U0ATJ7BKGT1`) and Heaven (`U0BD0RJ9DJ5`) on close targets
+- Post via **Slack MCP** AND **Zapier SlackCLIAPI** if needed for visibility
+- Zapier username: `War Room`
+- On critical events → `war-room-alert` skill → Slack + GHL SMS both
 
-GAPS (needs action)
-[missing fields, comet handoffs]
+## Booking Link (Include Often)
 
-NEXT MOVE
-[one line — who does what]
-```
+https://calendar.app.google/fxRwT82P5GRCY3GR9
 
-## Constraints
-- Read `config/flow-ownership.json` before any write
-- Never overlap Comet lead gen or GHL customer comms
-- Pitched deals with `cursor_stage_set` — do not re-pitch
+## Kickoff Sequence
+
+1. `deal-orchestrator` digest → 5+ hype posts to war-room
+2. `deal-orchestrator` audit → gap report + hype on what's closeable
+3. `verify_close` on FLA-102–106 → payment watch hype
+4. Any Stripe payment → CELEBRATION post + SMS + sold-clients
+
+## Constraints (No Overlap)
+
+- Comet = physical labor — don't duplicate
+- GHL = customer comms — don't pitch via Cursor/Zapier
+- Pitched deals with `cursor_stage_set` — DO NOT re-pitch
+- Read `config/flow-ownership.json` before GHL writes
+
+## Revenue at Stake (Current)
+
+- 5 pitched: FLA-102 through 106
+- $5,000 one-time + $3,288/mo MRR
+- 49+ leads in GHL warming
+- 12 active clients
+
+**The machine runs. You close.**

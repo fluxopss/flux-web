@@ -2,7 +2,10 @@
   "version": "2026-06-26",
   "channel": {
     "slack_war_room": "C0BDLF5JUQ4",
-    "slack_sold_clients": "C0AU0M839RD"
+    "slack_sold_clients": "C0AU0M839RD",
+    "war_room_purpose": "sales_hype",
+    "war_room_audience": ["jonathan", "heaven"],
+    "posting_policy": "post_aggressively_multiple_messages_per_run"
   },
   "sms": {
     "provider": "ghl",
