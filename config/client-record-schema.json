@@ -1,0 +1,97 @@
+{
+  "version": "2026-06-26",
+  "principle": "No deal moves forward without complete data. No client goes underserved.",
+  "required_by_stage": {
+    "new_lead": {
+      "contact": ["firstName", "lastName", "email", "phone", "companyName", "city", "state", "industry", "lead_source", "brand_origin"],
+      "opportunity": ["pipelineId", "stageId", "service_type", "ai_qualification_score"],
+      "tags": ["comet_intake|perplexity_scored|deal_hunter"],
+      "ghl_action": "Stage entry triggers wf_01_capture automatically — Cursor does NOT enroll"
+    },
+    "qualified": {
+      "contact": ["firstName", "lastName", "email", "phone", "companyName", "industry", "service_type", "ai_qualification_score", "brand_origin"],
+      "opportunity": ["pipelineId", "stageId", "service_type", "ai_qualification_score"],
+      "custom_fields": ["Best_First_Offer", "Best_First_Channel", "Top_Pain_Points", "Estimated_Service_Value"],
+      "min_score": 75,
+      "ghl_action": "Stage entry triggers wf_02_qualify automatically — Cursor does NOT enroll"
+    },
+    "proposal_sent": {
+      "contact": ["firstName", "lastName", "email", "phone", "companyName", "service_type", "fla_contract_ref", "brand_origin"],
+      "opportunity": ["pipelineId", "stageId", "service_type", "fla_contract_ref", "account_status"],
+      "payment": ["fla_contract_ref", "stripe_payment_url_or_website_checkout", "offer_amount"],
+      "ghl_action": "Stage entry triggers wf_03_proposal automatically — Cursor assigns contract ref + verifies Stripe link exists"
+    },
+    "contract_signed": {
+      "contact": ["firstName", "lastName", "email", "phone", "companyName", "service_type", "fla_contract_ref", "account_status", "brand_origin", "post_engagement_track"],
+      "opportunity": ["pipelineId", "stageId", "fla_contract_ref", "account_status", "service_type"],
+      "payment": ["stripe_payment_confirmed", "payment_amount", "payment_type"],
+      "ghl_action": "Stage entry triggers wf_04_onboard automatically — Cursor verifies Stripe payment first"
+    },
+    "in_delivery": {
+      "contact": ["fla_contract_ref", "service_type", "post_engagement_track", "account_status"],
+      "delivery": ["project_repo_url", "hostinger_deploy_target", "delivery_sla_start_date", "assigned_delivery_owner"],
+      "ghl_action": "GHL onboard workflow handles client intake forms — Cursor scaffolds flux-web project"
+    },
+    "delivered": {
+      "contact": ["fla_contract_ref", "service_type", "account_status"],
+      "delivery": ["live_site_url", "delivery_completion_date", "client_signoff"],
+      "ghl_action": "Cursor flags for expansion upsell — GHL handles upsell sequences"
+    },
+    "active_recurring": {
+      "contact": ["fla_contract_ref", "service_type", "account_status", "post_engagement_track"],
+      "payment": ["stripe_subscription_id", "subscription_status_active", "mrr_amount"],
+      "ghl_action": "Website Stripe automation manages billing — Cursor audits sync only"
+    }
+  },
+  "enrichment_queue": {
+    "description": "Leads that failed GHL intake due to missing public contact info",
+    "required_to_resolve": ["phone", "email"],
+    "resolution_owner": "cursor",
+    "resolution_method": "Comet browser scrape or Apollo lookup — then GHL upsert",
+    "leads": [
+      { "name": "ECOR Industries", "city": "Melbourne", "industry": "Pest/Lawn", "score": 89, "website": "https://www.ecorpestcontrol.com/about/", "status": "enrichment_pending" },
+      { "name": "Central Brevard Air & Heat", "city": "Mims/Brevard", "industry": "HVAC", "score": 83, "website": "https://www.centralbrevardair.com/aboutus", "status": "enrichment_pending" },
+      { "name": "Arnold Air Conditioning", "city": "Melbourne", "industry": "HVAC", "score": 86, "website": "https://arnoldair.com/about-us", "status": "enrichment_pending" },
+      { "name": "K & Y Carpet One", "city": "Melbourne", "industry": "Flooring", "score": 84, "website": "https://www.kandycarpetonemelbourne.com/about-us", "status": "enrichment_pending" },
+      { "name": "Bluecat Carpet Cleaning", "city": "Port St. Lucie", "industry": "Cleaning", "score": 80, "website": "https://tileandcarpetcleaningpros.com/about.html", "status": "enrichment_pending" },
+      { "name": "Outdoor Kitchens Port St. Lucie", "city": "Port St. Lucie", "industry": "Outdoor Living", "score": 79, "website": "https://outdoorkitchensportstlucie.com/about-us/", "status": "enrichment_pending" }
+    ]
+  },
+  "active_clients": {
+    "description": "12 active clients — all must have fulfillment_complete tag and full record",
+    "template": {
+      "contact": ["firstName", "lastName", "email", "phone", "companyName", "service_type", "fla_contract_ref", "account_status", "brand_origin", "post_engagement_track"],
+      "payment": ["stripe_customer_id", "stripe_subscription_or_payment_id"],
+      "delivery": ["live_site_url_or_service_status"]
+    },
+    "known": [
+      {
+        "name": "Perfect Client (Template)",
+        "ghl_contact_id": "uetehmnUSnpyfZZnfnaQ",
+        "fla_contract_ref": "FLA-2026-101",
+        "stage": "contract_signed",
+        "service_type": "flux_ops_growth + full_scale_seo",
+        "post_engagement_track": "Hosting + SEO",
+        "status": "fulfillment_complete"
+      }
+    ]
+  },
+  "pitched_batch_2026_06_26": {
+    "note": "Cursor advanced these to Proposal Sent — GHL wf_03 should fire on stage change. Do NOT re-pitch or re-enroll.",
+    "deals": [
+      { "company": "Jacquin & Sons Construction", "email": "info@pjsi.com", "score": 91, "offer": "flux_ops_growth", "fla_contract_ref": "FLA-2026-102", "stage": "proposal_sent", "tags": ["deal_hunter_2026-06-26", "cursor_stage_set", "pitch_ready"] },
+      { "company": "Rooftop Roofing Inc", "email": "info@rooftoproofingpsl.com", "score": 91, "offer": "pro_site_gbp_bundle", "fla_contract_ref": "FLA-2026-103", "stage": "proposal_sent", "tags": ["deal_hunter_2026-06-26", "cursor_stage_set", "pitch_ready"] },
+      { "company": "Complete Air and Heat Inc", "email": "info@completeairandheat.com", "score": 90, "offer": "flux_ops_growth", "fla_contract_ref": "FLA-2026-104", "stage": "proposal_sent", "tags": ["deal_hunter_2026-06-26", "cursor_stage_set", "pitch_ready"] },
+      { "company": "Fitzpatrick Plumbing Inc", "email": "info@fitzpatrickplumbingfl.com", "score": 90, "offer": "flux_ops_growth", "fla_contract_ref": "FLA-2026-105", "stage": "proposal_sent", "tags": ["deal_hunter_2026-06-26", "cursor_stage_set", "pitch_ready"] },
+      { "company": "Packard Roofing and Waterproofing", "email": "info@packardroofing.com", "score": 89, "offer": "pro_site_gbp_bundle", "fla_contract_ref": "FLA-2026-106", "stage": "proposal_sent", "tags": ["deal_hunter_2026-06-26", "cursor_stage_set", "pitch_ready"] }
+    ],
+    "revenue_at_stake": {
+      "flux_ops_growth_deals": 3,
+      "flux_ops_growth_value": "$697/mo + $997 setup each",
+      "pro_site_bundle_deals": 2,
+      "pro_site_bundle_value": "$2,500 + $299/mo each",
+      "total_one_time_potential": 5000,
+      "total_mrr_potential": 3288
+    }
+  }
+}

@@ -1,79 +1,85 @@
 {
-  "version": "2026-06-26",
+  "version": "2026-06-26-revised",
   "timezone": "America/New_York",
+  "overlap_policy": "Read config/flow-ownership.json before every run. Disabled agents overlap with Comet or GHL.",
   "agents": [
     {
       "id": "revenue-digest",
       "schedule": "0 6 * * *",
-      "skill": "deal-machine",
+      "skill": "deal-orchestrator",
       "mode": "digest",
       "params": { "post_to_slack": true },
       "slack_channel": "C0BB67LRDLZ",
-      "enabled": true
+      "enabled": true,
+      "note": "Read-only audit + Slack report. No writes unless gaps found."
+    },
+    {
+      "id": "record-auditor",
+      "schedule": "0 7 * * *",
+      "skill": "deal-orchestrator",
+      "mode": "audit",
+      "params": { "include_pitched_batch": true, "include_enrichment_queue": true, "include_active_clients": true },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true,
+      "note": "Validates all records. Replaces warm-lead-closer."
+    },
+    {
+      "id": "enrichment-queue-processor",
+      "schedule": "0 7 * * 1,3",
+      "skill": "deal-orchestrator",
+      "mode": "enrichment_queue",
+      "params": { "comet_handoff_on_fail": true },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true,
+      "note": "Processes 6 failed leads. Comet scrapes if Apollo fails."
+    },
+    {
+      "id": "stripe-close-verifier",
+      "schedule": "*/30 * * * *",
+      "skill": "deal-orchestrator",
+      "mode": "verify_close",
+      "params": {
+        "watch_contract_refs": ["FLA-2026-102", "FLA-2026-103", "FLA-2026-104", "FLA-2026-105", "FLA-2026-106"],
+        "lookback_minutes": 30,
+        "skip_if_ghl_already_signed": true
+      },
+      "slack_channel": "C0AU0M839RD",
+      "enabled": true,
+      "note": "Only advances stage if Stripe paid AND GHL not already Contract Signed."
+    },
+    {
+      "id": "client-fulfillment-friday",
+      "schedule": "0 9 * * 5",
+      "skill": "client-fulfillment",
+      "mode": "fulfill_all_active",
+      "params": { "target": "all_active_clients" },
+      "slack_channel": "C0AU0M839RD",
+      "enabled": true,
+      "note": "Ensures all 12 clients have complete records."
     },
     {
       "id": "deal-hunter-monday",
       "schedule": "0 7 * * 1",
       "skill": "deal-hunter",
-      "params": {
-        "county": "Brevard",
-        "niche_rotation": ["hvac", "roofing", "plumbing", "landscaping", "pest"],
-        "lead_count": 25,
-        "auto_pitch_top": 5
-      },
-      "slack_channel": "C0BB67LRDLZ",
-      "enabled": true
+      "mode": "hunt",
+      "enabled": false,
+      "disabled_reason": "OVERLAP: Comet Browser owns lead generation. Use Comet instead."
     },
     {
       "id": "deal-hunter-wednesday",
       "schedule": "0 7 * * 3",
       "skill": "deal-hunter",
-      "params": {
-        "county": "St. Lucie",
-        "niche_rotation": ["hvac", "roofing", "plumbing", "construction", "dental"],
-        "lead_count": 25,
-        "auto_pitch_top": 5
-      },
-      "slack_channel": "C0BB67LRDLZ",
-      "enabled": true
+      "mode": "hunt",
+      "enabled": false,
+      "disabled_reason": "OVERLAP: Comet Browser owns lead generation. Use Comet instead."
     },
     {
       "id": "warm-lead-closer",
       "schedule": "0 8 * * 1-5",
       "skill": "deal-machine",
       "mode": "hunt",
-      "params": {
-        "min_score": 80,
-        "auto_qualify": true,
-        "auto_pitch": true,
-        "max_pitches": 10
-      },
-      "slack_channel": "C0BB67LRDLZ",
-      "enabled": true
-    },
-    {
-      "id": "stripe-close-watcher",
-      "schedule": "*/30 * * * *",
-      "skill": "ghl-stripe-close",
-      "params": {
-        "watch_stripe_events": true,
-        "lookback_minutes": 30
-      },
-      "slack_channel": "C0AU0M839RD",
-      "enabled": true
-    },
-    {
-      "id": "expansion-friday",
-      "schedule": "0 9 * * 5",
-      "skill": "deal-machine",
-      "mode": "expand",
-      "params": {
-        "target_stage": "delivered",
-        "upsell_priority": ["hosting", "seo", "gbp"]
-      },
-      "slack_channel": "C0AU0M839RD",
-      "enabled": true
+      "enabled": false,
+      "disabled_reason": "OVERLAP: GHL wf_02/wf_03 own qualification and pitching. Cursor audits only."
     }
-  ],
-  "notes": "Activate via Cursor Cloud Agents or Zapier scheduled triggers. Each agent reads config/flux-ops-canonical.json for locked IDs."
+  ]
 }

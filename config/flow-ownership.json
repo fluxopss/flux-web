@@ -1,0 +1,128 @@
+{
+  "version": "2026-06-26",
+  "principle": "One owner per action. Cursor orchestrates and validates — never duplicates live systems.",
+  "systems": {
+    "comet_browser": {
+      "owner": "Comet Browser Agent",
+      "owns": [
+        "browser_automation",
+        "ghl_ui_operations",
+        "lead_discovery_runs",
+        "form_submissions",
+        "website_interactions",
+        "visual_workflow_execution",
+        "ringcentral_browser_flows"
+      ],
+      "never_cursor": [
+        "lead_generation_batches",
+        "browser_form_fills",
+        "ghl_ui_clicks",
+        "duplicate_lead_scraping"
+      ]
+    },
+    "ghl": {
+      "owner": "GoHighLevel (LeadConnector)",
+      "owns": [
+        "pipeline_stage_triggers",
+        "workflow_enrollment_on_stage_change",
+        "customer_sms",
+        "customer_email",
+        "trial_sequences",
+        "nurture_drips",
+        "missed_call_textback",
+        "appointment_reminders",
+        "review_automation",
+        "internal_ghl_tasks"
+      ],
+      "never_cursor": [
+        "manual_workflow_enrollment_via_zapier",
+        "outbound_customer_sms",
+        "outbound_customer_email",
+        "duplicate_nurture_sequences",
+        "re_enroll_active_workflows"
+      ],
+      "stage_triggered_workflows": {
+        "new_lead": "wf_01_capture",
+        "qualified": "wf_02_qualify",
+        "proposal_sent": "wf_03_proposal",
+        "contract_signed": "wf_04_onboard",
+        "missed_call": "wf_missed_call"
+      },
+      "note": "GHL workflows fire on stage change inside GHL. Cursor sets stage ONLY — never calls campaign/enroll via Zapier unless GHL automation is confirmed broken."
+    },
+    "website_stripe": {
+      "owner": "fluxlab.agency Website Automations",
+      "owns": [
+        "stripe_checkout_sessions",
+        "stripe_subscription_creation",
+        "monthly_recurring_billing",
+        "one_time_project_payments",
+        "payment_page_delivery",
+        "stripe_webhook_to_ghl_if_configured"
+      ],
+      "never_cursor": [
+        "duplicate_stripe_payment_links_if_website_handles",
+        "manual_invoice_creation_if_website_automation_exists"
+      ],
+      "note": "Check if Stripe webhook already advances GHL before Cursor acts."
+    },
+    "perplexity": {
+      "owner": "Perplexity / Master-Ninja Engine",
+      "owns": [
+        "lead_research",
+        "pain_analysis",
+        "scoring",
+        "outreach_copy_generation",
+        "ghl_json_payload_drafting",
+        "google_sheets_csv_export",
+        "gmail_draft_blocks"
+      ],
+      "never_cursor": [
+        "duplicate_research_runs_on_same_leads",
+        "regenerate_outreach_copy_if_already_in_ghl_custom_fields"
+      ]
+    },
+    "cursor": {
+      "owner": "Cursor Deal Orchestrator",
+      "owns": [
+        "cross_system_validation",
+        "client_record_completeness_audits",
+        "data_gap_filling",
+        "stripe_payment_verification",
+        "ghl_stage_sync_only_when_automation_gap",
+        "contract_ref_assignment",
+        "slack_ops_reporting",
+        "delivery_handoff_to_flux_web",
+        "enrichment_queue_processing",
+        "idempotency_tagging",
+        "revenue_digest"
+      ],
+      "never_cursor": [
+        "lead_generation",
+        "customer_outreach",
+        "ghl_workflow_enrollment",
+        "browser_automation",
+        "duplicate_stage_advances"
+      ]
+    }
+  },
+  "idempotency_tags": {
+    "comet_intake": "Lead entered by Comet — do not re-intake",
+    "perplexity_scored": "Scored by Master-Ninja — do not re-score",
+    "ghl_wf_active": "GHL workflow running — do not re-enroll",
+    "cursor_stage_set": "Cursor advanced stage — check before re-advancing",
+    "stripe_payment_linked": "Stripe payment URL/metadata attached",
+    "fulfillment_complete": "All required fields present for current stage",
+    "enrichment_pending": "Missing phone/email — queued for gap fill",
+    "pitch_ready": "Qualified and ready for GHL proposal workflow",
+    "deal_hunter_2026-06-26": "Batch tag — do not duplicate pitch"
+  },
+  "pre_action_checks": [
+    "Read contact tags before any GHL write",
+    "If tag ghl_wf_active exists, skip workflow enrollment",
+    "If tag comet_intake exists, skip lead creation — only validate/update",
+    "If tag cursor_stage_set matches target stage, skip stage advance",
+    "If Stripe webhook handles close, skip ghl-stripe-close stage advance",
+    "If outreach copy exists in GHL custom fields, do not regenerate"
+  ]
+}

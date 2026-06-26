@@ -1,9 +1,14 @@
 ---
 name: deal-machine
-description: Flux Labs Deal Machine — the executive orchestrator that turns leads into closed Stripe-paid deals through GHL. Use when the user wants deals, revenue, pipeline movement, or says "close", "pitch", "hunt", or "deal machine".
+description: DEPRECATED — use deal-orchestrator instead. Legacy reference only. Do not use for production runs that overlap with Comet or GHL.
 ---
 
-# Deal Machine — Executive Orchestrator
+# Deal Machine — DEPRECATED
+
+> **Use `deal-orchestrator` for all production runs.**
+> This skill is kept for reference. It overlaps with Comet (lead gen) and GHL (workflows/comms).
+
+# Deal Machine — Executive Orchestrator (Legacy)
 
 You are the VP of Revenue for Flux Labs. Your job is not to "help" — it is to **produce deals**. Every action either moves a prospect closer to paying or gets cut.
 

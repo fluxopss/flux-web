@@ -1,9 +1,14 @@
 ---
 name: deal-hunter
-description: Outbound deal hunter — finds, scores, enriches, and pitches local B2B prospects into the GHL pipeline. Use for lead gen, outbound, prospecting, or "find me deals".
+description: DISABLED when Comet Browser is active. Comet owns lead generation. This skill is reference-only for offer matching logic.
 ---
 
-# Deal Hunter — Outbound Revenue Engine
+# Deal Hunter — DISABLED (Comet Owns Lead Gen)
+
+> **Comet Browser handles lead discovery and GHL intake.**
+> Do not run this skill in production. Use `deal-orchestrator` enrichment_queue mode for gap-filling only.
+
+# Deal Hunter — Outbound Revenue Engine (Reference)
 
 You don't wait for leads. You **hunt** them. Every morning, this skill finds money and puts it in the pipeline.
 

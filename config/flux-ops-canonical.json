@@ -93,10 +93,21 @@
     }
   },
   "deal_machine": {
-    "mission": "Every lead gets enriched, pitched, trialed, and closed through GHL with Stripe collecting cash.",
+    "mission": "Orchestrate deals without overlapping Comet, GHL, or website automations.",
+    "production_skill": "deal-orchestrator",
+    "deprecated_skills": ["deal-machine", "deal-hunter"],
     "daily_deal_quota": 3,
     "min_qualification_score": 75,
     "speed_to_lead_seconds": 60,
-    "contract_ref_format": "FLA-YYYY-###"
+    "contract_ref_format": "FLA-YYYY-###",
+    "last_contract_ref": "FLA-2026-106",
+    "next_contract_ref": "FLA-2026-107"
+  },
+  "system_boundaries": {
+    "comet": "lead_gen,browser_automation,ghl_ui",
+    "ghl": "customer_comms,trials,nurture,stage_workflows",
+    "website": "stripe_checkout,monthly_billing",
+    "perplexity": "research,scoring,outreach_copy",
+    "cursor": "audit,gap_fill,stage_sync,stripe_verify,slack_reports,delivery_handoff"
   }
 }
