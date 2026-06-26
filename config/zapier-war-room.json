@@ -1,0 +1,52 @@
+{
+  "version": "2026-06-26",
+  "policy": "Zapier MCP focuses on War Room orchestration only. No overlap with Comet or GHL customer comms.",
+  "primary_slack_channel": {
+    "id": "C0BDLF5JUQ4",
+    "name": "#war-room",
+    "purpose": "ALL Zapier deal ops: digests, audits, pipeline status, closes, alerts"
+  },
+  "secondary_slack_channels": {
+    "sold_clients": {
+      "id": "C0AU0M839RD",
+      "name": "#sold-clients",
+      "when": "deal_closed or payment_received ONLY — after war-room post"
+    }
+  },
+  "do_not_post_via_zapier": [
+    "C0BB67LRDLZ",
+    "#project-update",
+    "#company-data",
+    "#ai-master"
+  ],
+  "zapier_allowed_actions": {
+    "slack": {
+      "action": "SlackCLIAPI:channel_message",
+      "default_channel": "C0BDLF5JUQ4",
+      "native_mcp_preferred": "slack_send_message"
+    },
+    "ghl_contact": {
+      "action": "HighLevelCLIAPI:add_update_contact",
+      "when": "gap_fill, internal_sms_ping, idempotent_upsert_only"
+    },
+    "ghl_opportunity": {
+      "action": "HighLevelCLIAPI:add_update_opportunity",
+      "when": "stage_sync_with_idempotency_check, verify_close_only"
+    },
+    "ghl_sms": {
+      "action": "HighLevelCLIAPI:add_update_contact",
+      "method": "war_room_alert_ping tag on internal contacts only"
+    }
+  },
+  "zapier_forbidden_actions": {
+    "ghl_campaign_enrollment": "Stage triggers handle workflows — NEVER call campaign via Zapier",
+    "customer_sms_email": "GHL workflows own all prospect/client comms",
+    "lead_generation": "Comet owns browser lead gen",
+    "ringcentral_sms": "GHL owns SMS — RingCentral texting not enabled",
+    "duplicate_stage_advance": "Skip if cursor_stage_set tag matches target stage"
+  },
+  "comet_boundary": {
+    "comet_owns": ["browser_automation", "ghl_ui_clicks", "lead_scraping", "form_fills", "physical_labor"],
+    "cursor_zapier_owns": ["war_room_slack", "stripe_verify", "record_audit", "idempotent_ghl_writes"]
+  }
+}

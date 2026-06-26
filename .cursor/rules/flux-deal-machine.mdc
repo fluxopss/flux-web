@@ -44,6 +44,17 @@ Use `deal-orchestrator` (not `deal-machine`) for all production runs.
 - **#sold-clients** — contract signed + onboarding only
 - **#project-update** — engineering/build updates only
 
+## Zapier MCP Scope
+Load `config/zapier-war-room.json`. Zapier focuses on **#war-room only** for deal ops.
+
+| Zapier DOES | Zapier DOES NOT |
+|-------------|-----------------|
+| Post to `#war-room` | Post to `#project-update` |
+| GHL idempotent upserts (gap fill, stage sync) | Enroll GHL workflows (`campaign`) |
+| GHL SMS ping (internal team via tag) | Customer SMS/email |
+| Stripe verify via Stripe MCP | Lead gen (Comet owns) |
+| War Room alerts to Jonathan + Heaven | Browser automation |
+
 ## SMS Alerts (War Room)
 Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven** via **GHL only**:
 - Add tag `war_room_alert_ping` to both internal GHL contacts (requires published workflow — see `docs/deal-machine/SMS-SETUP.md`)

@@ -43,7 +43,8 @@
         "lookback_minutes": 30,
         "skip_if_ghl_already_signed": true
       },
-      "slack_channel": "C0AU0M839RD",
+      "slack_channel": "C0BDLF5JUQ4",
+      "slack_secondary": "C0AU0M839RD",
       "war_room_sms_on_close": true,
       "enabled": true,
       "note": "Only advances stage if Stripe paid AND GHL not already Contract Signed."

@@ -22,7 +22,7 @@
   },
   "ghl": {
     "pipeline_id": "RbSKp5WldAzJFgDOwoMO",
-    "pipeline_name": "FLA Sales Pipeline",
+    "pipeline_name": "Flux Labs Sales Pipeline",
     "stages": {
       "new_lead": "249f57f7-d296-451c-ace0-a0a04eecbc13",
       "qualified": "a03eac73-3758-4108-9dfb-15de55cf5509",
@@ -52,6 +52,13 @@
       "employee_count",
       "industry"
     ]
+  },
+  "zapier": {
+    "focus": "war_room_only",
+    "config": "config/zapier-war-room.json",
+    "primary_slack": "C0BDLF5JUQ4",
+    "forbidden_slack": ["C0BB67LRDLZ"],
+    "note": "Zapier MCP posts deal ops to #war-room only. Comet does physical labor. GHL does customer comms."
   },
   "slack": {
     "war_room": "C0BDLF5JUQ4",

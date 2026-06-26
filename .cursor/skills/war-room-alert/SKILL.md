@@ -9,6 +9,7 @@ Every important event hits **two channels**: `#war-room` on Slack AND SMS to lea
 
 ## Config
 - `config/war-room-alerts.json` — recipients, templates, triggers
+- `config/zapier-war-room.json` — Zapier posts to #war-room only
 - `automation/war-room-delivery.json` — delivery paths and GHL contact IDs
 - `docs/deal-machine/SMS-SETUP.md` — one-time GHL workflow setup
 

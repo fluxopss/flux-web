@@ -91,7 +91,7 @@
         "stripe_payment_verification",
         "ghl_stage_sync_only_when_automation_gap",
         "contract_ref_assignment",
-        "slack_ops_reporting",
+        "slack_war_room_reporting",
         "delivery_handoff_to_flux_web",
         "enrichment_queue_processing",
         "idempotency_tagging",
@@ -102,8 +102,27 @@
         "customer_outreach",
         "ghl_workflow_enrollment",
         "browser_automation",
-        "duplicate_stage_advances"
+        "duplicate_stage_advances",
+        "slack_project_update_for_deal_ops"
       ]
+    },
+    "zapier_mcp": {
+      "owner": "Zapier MCP (War Room focus)",
+      "owns": [
+        "war_room_slack_posts",
+        "ghl_idempotent_upserts",
+        "internal_sms_tag_ping",
+        "stripe_verify_support"
+      ],
+      "never_zapier": [
+        "campaign_workflow_enrollment",
+        "customer_sms_email",
+        "lead_generation",
+        "project_update_channel",
+        "ringcentral_sms"
+      ],
+      "primary_slack": "C0BDLF5JUQ4",
+      "config": "config/zapier-war-room.json"
     }
   },
   "idempotency_tags": {

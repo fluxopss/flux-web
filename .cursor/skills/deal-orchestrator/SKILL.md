@@ -35,7 +35,7 @@ Before ANY action, read:
 1. Load `client-record-schema.json` enrichment queue + pitched batch + active clients
 2. For each record, check required fields for current stage
 3. Return gap report: missing fields, missing tags, stage mismatches
-4. Post to `#project-update` (username: `Record Auditor`)
+4. Post to `#war-room` via `war-room-alert` (username: `Record Auditor`)
 5. **No writes** — audit only
 
 ### `fill_gaps` — Complete the Record
@@ -46,7 +46,7 @@ Required: `email` OR `companyName`
 4. If Apollo fails, flag for Comet browser scrape (do NOT scrape yourself)
 5. Upsert GHL contact with complete fields
 6. Add tag `fulfillment_complete` when all required fields present
-7. Post gap-fill report to `#project-update`
+7. Post gap-fill report to `#war-room`
 
 ### `sync_stage` — Move Pipeline (Idempotent)
 Required: `email`, `target_stage`, `fla_contract_ref` (if proposal+)
@@ -99,7 +99,7 @@ Required: `email` or `fla_contract_ref`
    - If phone+email found, upsert GHL contact at New Lead stage
    - Add tag `comet_intake` if Comet will handle, else `cursor_enriched`
 3. **Do NOT pitch** — let GHL wf_01 handle new leads
-4. Post queue results to `#project-update`
+4. Post queue results to `#war-room`
 
 ---
 
