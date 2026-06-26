@@ -9,7 +9,7 @@
       "skill": "deal-orchestrator",
       "mode": "digest",
       "params": { "post_to_slack": true },
-      "slack_channel": "C0BB67LRDLZ",
+      "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
       "note": "Read-only audit + Slack report. No writes unless gaps found."
     },
@@ -19,7 +19,7 @@
       "skill": "deal-orchestrator",
       "mode": "audit",
       "params": { "include_pitched_batch": true, "include_enrichment_queue": true, "include_active_clients": true },
-      "slack_channel": "C0BB67LRDLZ",
+      "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
       "note": "Validates all records. Replaces warm-lead-closer."
     },
@@ -29,7 +29,7 @@
       "skill": "deal-orchestrator",
       "mode": "enrichment_queue",
       "params": { "comet_handoff_on_fail": true },
-      "slack_channel": "C0BB67LRDLZ",
+      "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
       "note": "Processes 6 failed leads. Comet scrapes if Apollo fails."
     },

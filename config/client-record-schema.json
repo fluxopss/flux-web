@@ -47,7 +47,8 @@
     "description": "Leads that failed GHL intake due to missing public contact info",
     "required_to_resolve": ["phone", "email"],
     "resolution_owner": "cursor",
-    "resolution_method": "Comet browser scrape or Apollo lookup — then GHL upsert",
+    "resolution_method": "Web scrape or Comet browser — then GHL upsert at New Lead",
+    "status": "cleared_2026_06_26",
     "leads": [
       { "name": "ECOR Industries", "city": "Melbourne", "industry": "Pest/Lawn", "score": 89, "website": "https://www.ecorpestcontrol.com/about/", "status": "enrichment_pending" },
       { "name": "Central Brevard Air & Heat", "city": "Mims/Brevard", "industry": "HVAC", "score": 83, "website": "https://www.centralbrevardair.com/aboutus", "status": "enrichment_pending" },

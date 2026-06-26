@@ -40,7 +40,6 @@ Load `config/client-record-schema.json`. No stage advance without required field
 Use `deal-orchestrator` (not `deal-machine`) for all production runs.
 
 ## Slack Routing
-- `#project-update` — audits, digests, gap reports
-- `#sold-clients` — closes, fulfillment, delivery
-- `#company-data` — catalog, pricing
-- `#ai-master` — knowledge base (Perplexity/Comet output)
+- **#war-room** (`C0BDLF5JUQ4`) — ALL deal ops: digests, audits, enrichment, pipeline status
+- **#sold-clients** — contract signed + onboarding only
+- **#project-update** — engineering/build updates only
