@@ -1,11 +1,11 @@
 ---
 name: war-room-alert
-description: Send War Room alerts to Slack #war-room AND SMS to Jonathan + Heaven. Primary SMS via GHL tag trigger; RingCentral backup when permissions fixed.
+description: Send War Room alerts to Slack #war-room AND SMS to Jonathan + Heaven via GHL. RingCentral is not used for texting.
 ---
 
-# War Room Alert — Slack + SMS Broadcast
+# War Room Alert — Slack + GHL SMS
 
-Every important event hits **two channels**: `#war-room` on Slack AND SMS to leadership.
+Every important event hits **two channels**: `#war-room` on Slack AND SMS to leadership via **GHL**.
 
 ## Config
 - `config/war-room-alerts.json` — recipients, templates, triggers
@@ -16,13 +16,15 @@ Every important event hits **two channels**: `#war-room` on Slack AND SMS to lea
 - **Jonathan:** +17728674562 (`jonathan@fluxlab.agency`)
 - **Heaven:** +17727754860 (`heaven@fluxlab.agency`)
 
+**SMS provider:** GHL only. RingCentral texting is not enabled.
+
 ---
 
 ## Alert Function
 
 For every war room event with `event_type` from `alert_triggers`:
 
-### 1. Post to Slack `#war-room` (C0BDLF5JUQ4) — ALWAYS WORKS
+### 1. Post to Slack `#war-room` (C0BDLF5JUQ4)
 
 Use native Slack MCP:
 ```
@@ -32,16 +34,9 @@ slack_send_message(
 )
 ```
 
-Or Zapier fallback:
-```
-execute_zapier_write_action[SlackCLIAPI:channel_message](
-  channel: "C0BDLF5JUQ4", as_bot: "yes", username: "War Room", text: <message>
-)
-```
+### 2. SMS via GHL (if trigger requires it)
 
-### 2. SMS if trigger requires it (check `alert_triggers[event_type].sms`)
-
-**Primary path — GHL tag ping** (works once "War Room SMS Alert" workflow is published):
+Requires published GHL workflow **War Room SMS Alert** (trigger: tag `war_room_alert_ping`).
 
 For EACH internal contact (Jonathan + Heaven):
 ```
@@ -53,41 +48,15 @@ execute_zapier_write_action[HighLevelCLIAPI:add_update_contact](
 )
 ```
 
-The `war_room_alert_ping` tag triggers GHL workflow → SMS to that contact → tag removed.
-
-**Backup path — RingCentral** (blocked until OutboundSMS granted):
-```
-execute_zapier_write_action[RingCentralCLIAPI:send_sms](
-  message_type: "SMS",
-  phoneNumberFrom: "+17727427052",
-  phoneNumberTo: "<recipient>",
-  text: <concise SMS + " -Flux War Room">
-)
-```
-
-**Backup path — Twilio** (needs Zapier auth):
-```
-execute_zapier_write_action[TwilioCLIAPI:smsv2](
-  to: "<recipient>",
-  message: <text>
-)
-```
+GHL workflow fires → SMS to that contact → workflow removes `war_room_alert_ping` tag.
 
 ---
 
 ## SMS Message Rules
-- Max 1000 characters
+- Max 1000 characters in GHL workflow template
 - Lead with event type: `DEAL CLOSED` | `PAYMENT IN` | `PITCHED` | `DIGEST` | `ALERT`
 - Include: company, FLA ref, dollar amount when relevant
 - End with: `-Flux War Room`
-
-## Template Rendering
-
-Load template from `alert_triggers[event_type].template` and replace:
-- `{company}`, `{fla_ref}`, `{amount}`, `{offer}`, `{service_type}`
-- `{pitched}`, `{pending_payments}`, `{revenue_at_stake}`, `{fields}`, `{message}`
-
----
 
 ## When to SMS (Mandatory)
 
@@ -109,22 +78,15 @@ Load template from `alert_triggers[event_type].template` and replace:
 - Client fulfillment complete
 - Onboarding handoff
 
----
-
 ## Integration Points
-
-All other skills call this skill after their action:
 - `deal-orchestrator` verify_close → `deal_closed`
 - `deal-orchestrator` sync_stage proposal_sent → `proposal_sent`
 - `deal-orchestrator` digest → `daily_digest`
 - `client-fulfillment` gap on active → `client_fulfillment_gap`
 
-## Idempotency
-- Check GHL tags for `sms_sent_{event_id}` before re-sending
-- Do not duplicate SMS for same event within 60 minutes
-- `war_room_alert_ping` tag is removed by GHL workflow after send
-
 ## Constraints
-- Internal team SMS only — never SMS prospects (GHL owns customer SMS)
-- Prefer GHL tag ping over RingCentral until OutboundSMS permission fixed
-- Always post Slack even if SMS path fails
+- **GHL owns all SMS** — internal and customer
+- **Never use RingCentral** for War Room alerts
+- Internal team only via `war_room_alert_ping` tag on internal contacts
+- Always post Slack even if GHL SMS fails
+- Do not duplicate SMS for same event within 60 minutes

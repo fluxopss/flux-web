@@ -45,7 +45,7 @@ Use `deal-orchestrator` (not `deal-machine`) for all production runs.
 - **#project-update** — engineering/build updates only
 
 ## SMS Alerts (War Room)
-Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven**:
-- Primary: GHL tag `war_room_alert_ping` on internal contacts (requires GHL workflow — see `docs/deal-machine/SMS-SETUP.md`)
-- Backup: RingCentral `+17727427052` (needs OutboundSMS permission on Zapier OAuth)
-- Always post Slack `#war-room` even if SMS fails
+Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven** via **GHL only**:
+- Add tag `war_room_alert_ping` to both internal GHL contacts (requires published workflow — see `docs/deal-machine/SMS-SETUP.md`)
+- RingCentral is NOT used for texting
+- Always post Slack `#war-room` even if GHL SMS fails

@@ -5,15 +5,11 @@
     "slack_sold_clients": "C0AU0M839RD"
   },
   "sms": {
-    "provider": "ghl_tag_trigger",
-    "provider_fallback": "ringcentral",
-    "from_number_e164": "+17727427052",
-    "from_number_id": 2563383011,
-    "from_account": "contact@fluxlab.agency",
+    "provider": "ghl",
+    "provider_note": "RingCentral texting not enabled. GHL is the only SMS path for War Room alerts.",
     "ghl_ping_tag": "war_room_alert_ping",
     "ghl_workflow_name": "War Room SMS Alert",
     "ghl_workflow_setup": "docs/deal-machine/SMS-SETUP.md",
-    "ringcentral_blocker": "OutboundSMS permission required on Zapier OAuth user — see SMS-SETUP.md Step 2",
     "recipients": {
       "jonathan": {
         "name": "Jonathan Augusto",
@@ -109,8 +105,6 @@
   },
   "zapier_actions": {
     "sms_ghl_ping": "HighLevelCLIAPI:add_update_contact",
-    "sms_broadcast": "RingCentralCLIAPI:send_message_thread_sms",
-    "sms_single": "RingCentralCLIAPI:send_sms",
     "slack_war_room": "SlackCLIAPI:channel_message"
   }
 }

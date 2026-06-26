@@ -1,6 +1,6 @@
 {
   "version": "2026-06-26",
-  "description": "War Room alert delivery matrix — Slack always, SMS when trigger requires",
+  "description": "War Room alert delivery — Slack + GHL SMS only (RingCentral texting not enabled)",
   "recipients": {
     "slack_war_room": "C0BDLF5JUQ4",
     "slack_sold_clients": "C0AU0M839RD",
@@ -14,25 +14,15 @@
       "channel_id": "C0BDLF5JUQ4",
       "status": "live"
     },
-    "sms_primary": {
-      "provider": "ghl_tag_trigger",
-      "method": "Add tag war_room_alert_ping to both internal contacts via HighLevelCLIAPI:add_update_contact",
-      "requires_workflow": "War Room SMS Alert (GHL)",
+    "sms": {
+      "provider": "ghl",
+      "method": "tag_trigger",
+      "ping_tag": "war_room_alert_ping",
+      "workflow_name": "War Room SMS Alert",
+      "zapier_action": "HighLevelCLIAPI:add_update_contact",
       "workflow_setup_doc": "docs/deal-machine/SMS-SETUP.md",
-      "status": "pending_ghl_workflow"
-    },
-    "sms_backup_ringcentral": {
-      "provider": "ringcentral",
-      "from_number": "+17727427052",
-      "from_number_id": 2563383011,
-      "zapier_action": "RingCentralCLIAPI:send_sms",
-      "blocker": "OutboundSMS permission not granted to Zapier OAuth user",
-      "status": "blocked"
-    },
-    "sms_backup_twilio": {
-      "provider": "twilio",
-      "zapier_action": "TwilioCLIAPI:smsv2",
-      "status": "needs_auth"
+      "status": "requires_ghl_workflow_publish",
+      "note": "RingCentral texting not enabled — GHL is the only SMS path"
     }
   },
   "ghl_internal_contacts": {
