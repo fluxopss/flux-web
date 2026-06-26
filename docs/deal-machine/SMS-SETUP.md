@@ -8,62 +8,100 @@ RingCentral does **not** have texting enabled. All War Room SMS routes through G
 
 ---
 
-## Status
+## Root Cause (2026-06-26 audit)
 
-| Channel | Status |
-|---------|--------|
-| Slack `#war-room` | ✅ Live |
-| GHL internal contacts | ✅ Jonathan + Heaven with `war_room_sms` tag |
-| GHL SMS workflow | ⚠️ Create once in GHL (below) |
-| RingCentral SMS | ❌ Not used — texting not enabled |
+| Issue | Status |
+|-------|--------|
+| `War Room SMS Alert` workflow in GHL | **MISSING** — not in the 12 published workflows |
+| Tag `war_room_alert_ping` re-fire | Unreliable — tag may already exist; no workflow listening |
+| Zapier direct SMS action | Not available on LeadConnector connector |
+| RingCentral SMS | OutboundSMS permission blocked; texting not enabled |
+
+**Fix:** Create the GHL workflow once (Comet), then Cursor enrolls contacts via Zapier `Add Lead to Workflow`.
 
 ---
 
-## Step 1 — Create GHL Workflow (One-Time, ~5 min)
+## Step 1 — Comet creates GHL workflow (one-time, ~5 min)
 
 In **GoHighLevel → Automation → Workflows → Create**:
 
 ### Workflow: `War Room SMS Alert`
 
-**Trigger:** Contact Tag Added → `war_room_alert_ping`
+**Trigger:** Contact Added to Workflow *(NOT tag added — Zapier cannot re-fire tags reliably)*
 
 **Actions:**
-1. **Wait** — 5 seconds
-2. **Send SMS** — To contact (the tagged person)
+1. **Wait** — 3 seconds
+2. **Send SMS** — To contact
    ```
-   {{contact.first_name}}, War Room: {{contact.last_name}} — check #war-room in Slack. Critical deal updates route here. -Flux War Room
+   {{contact.first_name}}, War Room: {{contact.notes}}
+
+   Check #war-room in Slack for deal updates.
+   -Flux War Room
    ```
-3. **Remove Tag** — `war_room_alert_ping`
+3. **Clear Contact Notes** *(optional — keeps records clean)*
 
 **Publish** the workflow.
 
-### Optional — Dynamic message body
-
-Add a GHL custom field `war_room_alert_message` on contacts. Update workflow SMS to:
-```
-{{contact.war_room_alert_message}}
-```
-
-Cursor can set that field before pinging the tag (when Zapier custom field mapping is available).
+**After publish:** Copy the workflow ID from the URL or workflow settings and paste into:
+- `config/war-room-alerts.json` → `sms.ghl_workflow_id`
+- `config/ghl-workflows-registry.json` → `internal_workflows.war_room_sms_alert.id`
 
 ---
 
-## How Cursor Fires SMS
+## Step 2 — How Cursor fires SMS (reliable path)
 
-The `war-room-alert` skill tags **both** internal GHL contacts with `war_room_alert_ping`:
+Two Zapier calls per person:
+
+### A. Set alert message on contact
+```
+execute_zapier_write_action[HighLevelCLIAPI:add_update_contact](
+  email: "jonathan@fluxlab.agency",
+  phone: "+17728674562",
+  lead: "false",
+  notes: "WAR ROOM: {message}"
+)
+```
+
+### B. Enroll in War Room workflow (sends SMS)
+```
+execute_zapier_write_action[HighLevelCLIAPI:campaign](
+  campaign_id: "<war_room_workflow_id>",
+  email: "jonathan@fluxlab.agency",
+  phone: "+17728674562",
+  firstName: "Jonathan",
+  lastName: "Augusto"
+)
+```
+
+Repeat for Heaven (`heaven@fluxlab.agency`, `+17727754860`).
 
 | Contact | Email | GHL ID |
 |---------|-------|--------|
 | Jonathan | jonathan@fluxlab.agency | qhGUDsW47iLWg8vscFlZ |
 | Heaven | heaven@fluxlab.agency | IfYpm9qp5m1NWYBTCpB4 |
 
-Each tag add triggers the workflow → 1 SMS to that person.
+---
 
-**Zapier action:** `HighLevelCLIAPI:add_update_contact`
+## GHL workflows currently in account (verified 2026-06-26)
+
+These exist — **War Room SMS Alert is NOT among them**:
+
+1. Workflow - 01 \| New Lead – Intake & Nurture
+2. Workflow - 02 \| Lead Replied – AI Qualification + Route
+3. Workflow - 03 \| Booked – Discovery Call Confirmation
+4. Workflow - 04 \| Won – Client Onboarding Emails
+5. Workflow - 05 \| Alert – Missed Call
+6. Workflow - 06 \| Alert – Voice AI Lead Notification
+7. Workflow - 07 \| Overdue Payment – Follow-Up Sequence
+8. Workflow - 08 \| Proposal Sent – 3-Day Follow-Up
+9. Workflow - 09 \| Won – Review Request
+10. Workflow - 10 \| Lead No Reply – 7-Day Reactivation
+11. Workflow - 11 \| Monthly Retainer Check-In
+12. Workflow - 12 \| New Client Welcome Sequence
 
 ---
 
-## What Triggers SMS
+## What triggers SMS
 
 From `config/war-room-alerts.json`:
 
@@ -81,9 +119,7 @@ From `config/war-room-alerts.json`:
 
 ---
 
-## Manual Test
-
-After the GHL workflow is published, ask Cursor:
+## Manual test (after Comet publishes workflow)
 
 ```
 Run war-room-alert for war_room_system with message "SMS test — War Room is live"
@@ -93,9 +129,23 @@ You and Heaven should each receive a GHL text within ~30 seconds.
 
 ---
 
+## RingCentral (backup only — not primary)
+
+RingCentral texting is **not enabled** on `contact@fluxlab.agency`. To enable as backup:
+
+1. Log in at https://support.ringcentral.com
+2. Open case: **Enable SMS / OutboundSMS on contact@fluxlab.agency**
+3. Request: grant `OutboundSMS` scope to Zapier OAuth app + enable A2P 10DLC for Flux Labs numbers
+4. Verify: send test from RingCentral app to 772-867-4562
+
+**Primary path remains GHL.** RingCentral is optional fallback only.
+
+---
+
 ## Constraints
 
 - **GHL owns all SMS** — prospects and internal team
-- **Never use RingCentral** for War Room alerts
+- **Never use RingCentral** for War Room alerts until explicitly enabled
 - Cursor always posts Slack `#war-room` even if GHL SMS fails
 - Internal contacts only — customer SMS stays in GHL stage workflows
+- Zapier `campaign` enrollment is **allowed for internal War Room workflow only** — never for customer nurture workflows

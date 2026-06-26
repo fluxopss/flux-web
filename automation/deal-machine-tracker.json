@@ -1,21 +1,36 @@
 {
   "version": "2026-06-26",
-  "last_updated": "2026-06-26T17:58:00-04:00",
+  "last_updated": "2026-06-26T20:12:00-04:00",
   "war_room_channel": "C0BDLF5JUQ4",
-  "overlap_policy": "config/flow-ownership.json",
+  "overlap_policy": "Cursor owns B2B lead gen via deal-hunter",
   "totals": {
-    "leads_in_ghl": 49,
+    "leads_in_ghl": 53,
     "enrichment_queue_pending": 0,
     "enrichment_queue_cleared": 6,
-    "pitched_active": 5,
+    "pitched_active": 6,
     "active_clients": 12,
     "deals_closed": 1,
-    "revenue_one_time_potential": 5000,
-    "revenue_mrr_potential": 3288,
-    "new_leads_added_today": 3
+    "revenue_one_time_potential": 5997,
+    "revenue_mrr_potential": 3985,
+    "new_leads_added_today": 4,
+    "deal_hunter_runs_today": 1
   },
-  "last_contract_ref": "FLA-2026-106",
-  "next_contract_ref": "FLA-2026-107",
+  "last_contract_ref": "FLA-2026-107",
+  "next_contract_ref": "FLA-2026-108",
+  "deal_hunter_batch_2026_06_26": {
+    "niche": "HVAC",
+    "geo": "Brevard County FL",
+    "found": 4,
+    "intaked": 4,
+    "qualified": 3,
+    "pitched": 1,
+    "leads": [
+      { "company": "Gabbard Air LLC", "email": "gabbardair@yahoo.com", "score": 88, "stage": "new_lead", "ghl_contact_id": "wqvOFPotonV8EzPJhZSw" },
+      { "company": "Competitive Air and Heat", "email": "admin@competitiveairandheat.com", "score": 90, "stage": "proposal_sent", "fla_ref": "FLA-2026-107", "ghl_contact_id": "hVQVfkRsdxaZuluMd9Dy" },
+      { "company": "Erwin Air and Heat of Brevard", "email": "erwinairandheat@gmail.com", "score": 87, "stage": "qualified", "ghl_contact_id": "PIEgj1nfY2ZCk1iK8RKx" },
+      { "company": "Brevard Cooling and Heating Inc", "email": "info@brevardcooling.com", "score": 86, "stage": "qualified", "ghl_contact_id": "vhQdOw5wrmVEoEN9tnnY" }
+    ]
+  },
   "enrichment_queue_cleared": [
     { "company": "ECOR Industries", "score": 89, "phone": "+13212042084", "email": "info@ecorpestcontrol.com", "ghl_stage": "new_lead", "status": "fulfillment_complete" },
     { "company": "Arnold Air Conditioning", "score": 86, "phone": "+17722131550", "email": "info@arnoldair.com", "ghl_stage": "contact_exists", "status": "fulfillment_complete" },
@@ -29,9 +44,22 @@
     { "ref": "FLA-2026-103", "company": "Rooftop Roofing Inc", "offer": "pro_site_gbp_bundle", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "DO_NOT_TOUCH" },
     { "ref": "FLA-2026-104", "company": "Complete Air and Heat Inc", "offer": "flux_ops_growth", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "DO_NOT_TOUCH" },
     { "ref": "FLA-2026-105", "company": "Fitzpatrick Plumbing Inc", "offer": "flux_ops_growth", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "DO_NOT_TOUCH" },
-    { "ref": "FLA-2026-106", "company": "Packard Roofing", "offer": "pro_site_gbp_bundle", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "DO_NOT_TOUCH" }
+    { "ref": "FLA-2026-106", "company": "Packard Roofing", "offer": "pro_site_gbp_bundle", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "DO_NOT_TOUCH" },
+    { "ref": "FLA-2026-107", "company": "Competitive Air and Heat", "offer": "flux_ops_growth", "stage": "proposal_sent", "stripe": "pending", "cursor_action": "deal_hunter_pitched", "source": "deal_hunter_2026-06-26" }
   ],
   "runs": [
+    {
+      "timestamp": "2026-06-26T20:12:00-04:00",
+      "agent_id": "deal-hunter-daily",
+      "skill": "deal-hunter",
+      "mode": "hunt",
+      "leads_found": 4,
+      "leads_intaked": 4,
+      "qualified": 3,
+      "pitched": 1,
+      "revenue_at_stake": 1694,
+      "status": "success"
+    },
     {
       "timestamp": "2026-06-26T17:58:00-04:00",
       "agent_id": "war-room-kickoff",

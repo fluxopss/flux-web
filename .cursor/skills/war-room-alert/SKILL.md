@@ -16,6 +16,7 @@ On **every war room update**, notify **both** leaders via all three channels:
 
 ## Config
 - `config/war-room-alerts.json` → `update_notify_policy`
+- `config/war-room-alerts.json` → `sms.ghl_workflow_id` (must be set after Comet creates workflow)
 
 ---
 
@@ -23,23 +24,38 @@ On **every war room update**, notify **both** leaders via all three channels:
 
 ### 1. Post to `#war-room` (C0BDLF5JUQ4) — HYPE
 
-### 2. SMS both (GHL tag `war_room_alert_ping`)
+### 2. SMS both (GHL workflow enrollment)
 
-Jonathan:
+**Prerequisite:** `War Room SMS Alert` workflow exists in GHL with trigger `Contact Added to Workflow`.
+If `sms.ghl_workflow_id` is null → skip SMS, post blocker to `#war-room`, continue other channels.
+
+**Per person (Jonathan, then Heaven):**
+
+Step A — set message on contact notes:
 ```
 execute_zapier_write_action[HighLevelCLIAPI:add_update_contact](
-  email: "jonathan@fluxlab.agency", phone: "+17728674562",
-  tags: "internal_team,war_room_sms,ceo,war_room_alert_ping"
+  email: "<email>",
+  phone: "<phone_e164>",
+  lead: "false",
+  notes: "WAR ROOM: {message}"
 )
 ```
 
-Heaven:
+Step B — enroll in War Room SMS workflow:
 ```
-execute_zapier_write_action[HighLevelCLIAPI:add_update_contact](
-  email: "heaven@fluxlab.agency", phone: "+17727754860",
-  tags: "internal_team,war_room_sms,coo,war_room_alert_ping"
+execute_zapier_write_action[HighLevelCLIAPI:campaign](
+  campaign_id: "<sms.ghl_workflow_id from config>",
+  email: "<email>",
+  phone: "<phone_e164>",
+  firstName: "<first>",
+  lastName: "<last>"
 )
 ```
+
+| Person | Email | Phone | GHL ID |
+|--------|-------|-------|--------|
+| Jonathan | jonathan@fluxlab.agency | +17728674562 | qhGUDsW47iLWg8vscFlZ |
+| Heaven | heaven@fluxlab.agency | +17727754860 | IfYpm9qp5m1NWYBTCpB4 |
 
 ### 3. Email both (Gmail)
 
@@ -60,17 +76,18 @@ slack_send_message(channel_id: "U0BD0RJ9DJ5", message: ...)  # Heaven
 
 ---
 
-## GHL Contact IDs
+## SMS blocker (current)
 
-| Person | GHL ID |
-|--------|--------|
-| Jonathan | qhGUDsW47iLWg8vscFlZ |
-| Heaven | IfYpm9qp5m1NWYBTCpB4 |
+As of 2026-06-26: `War Room SMS Alert` workflow **does not exist** in GHL.
+Comet must create it — see `docs/deal-machine/SMS-COMET-HANDOFF.md`.
+
+Until workflow ID is in config, SMS steps are skipped. Slack + email still fire.
 
 ---
 
 ## Constraints
-- GHL owns SMS (tag trigger workflow)
+- GHL owns SMS via workflow enrollment (not tag ping)
 - Gmail from Flux workspace
-- Always post `#war-room` even if other channels fail
+- Always post `#war-room` even if GHL SMS fails
 - Internal leadership only
+- `campaign` enrollment allowed **only** for internal War Room workflow — never customer workflows

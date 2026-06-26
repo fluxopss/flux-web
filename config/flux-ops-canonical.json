@@ -101,21 +101,23 @@
     }
   },
   "deal_machine": {
-    "mission": "Orchestrate deals without overlapping Comet, GHL, or website automations.",
-    "production_skill": "deal-orchestrator",
-    "deprecated_skills": ["deal-machine", "deal-hunter"],
+    "mission": "Hunt, orchestrate, and close deals. Cursor owns B2B lead gen via deal-hunter.",
+    "production_skills": ["deal-hunter", "deal-orchestrator"],
+    "deprecated_skills": ["deal-machine"],
+    "lead_gen_skill": "deal-hunter",
+    "lead_gen_config": "config/lead-gen-config.json",
     "daily_deal_quota": 3,
     "min_qualification_score": 75,
     "speed_to_lead_seconds": 60,
     "contract_ref_format": "FLA-YYYY-###",
-    "last_contract_ref": "FLA-2026-106",
-    "next_contract_ref": "FLA-2026-107"
+    "last_contract_ref": "FLA-2026-107",
+    "next_contract_ref": "FLA-2026-108"
   },
   "system_boundaries": {
-    "comet": "lead_gen,browser_automation,ghl_ui",
+    "comet": "browser_automation,ghl_ui,fallback_scrape",
     "ghl": "customer_comms,trials,nurture,stage_workflows",
     "website": "stripe_checkout,monthly_billing",
     "perplexity": "research,scoring,outreach_copy",
-    "cursor": "audit,gap_fill,stage_sync,stripe_verify,slack_reports,delivery_handoff"
+    "cursor": "lead_gen,hunt,audit,gap_fill,stage_sync,stripe_verify,slack_reports,delivery_handoff",
   }
 }

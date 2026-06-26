@@ -14,10 +14,8 @@
         "ringcentral_browser_flows"
       ],
       "never_cursor": [
-        "lead_generation_batches",
-        "browser_form_fills",
-        "ghl_ui_clicks",
-        "duplicate_lead_scraping"
+        "b2b_lead_generation_batches",
+        "duplicate_lead_scraping_when_cursor_hunted"
       ]
     },
     "ghl": {
@@ -83,8 +81,13 @@
       ]
     },
     "cursor": {
-      "owner": "Cursor Deal Orchestrator",
+      "owner": "Cursor Deal Orchestrator + Deal Hunter",
       "owns": [
+        "b2b_lead_generation",
+        "lead_discovery_and_scoring",
+        "lead_enrichment_apollo",
+        "ghl_lead_intake",
+        "auto_qualify_and_pitch_top_scorers",
         "cross_system_validation",
         "client_record_completeness_audits",
         "data_gap_filling",
@@ -98,10 +101,8 @@
         "revenue_digest"
       ],
       "never_cursor": [
-        "lead_generation",
-        "customer_outreach",
-        "ghl_workflow_enrollment",
-        "browser_automation",
+        "customer_outreach_direct_sms_email",
+        "ghl_customer_workflow_enrollment_via_zapier",
         "duplicate_stage_advances",
         "slack_project_update_for_deal_ops"
       ]
@@ -126,7 +127,8 @@
     }
   },
   "idempotency_tags": {
-    "comet_intake": "Lead entered by Comet — do not re-intake",
+    "comet_intake": "Lead entered by Comet browser — do not re-intake",
+    "cursor_intake": "Lead entered by Deal Hunter — do not re-intake",
     "perplexity_scored": "Scored by Master-Ninja — do not re-score",
     "ghl_wf_active": "GHL workflow running — do not re-enroll",
     "cursor_stage_set": "Cursor advanced stage — check before re-advancing",

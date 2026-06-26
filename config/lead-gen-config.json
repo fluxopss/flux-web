@@ -1,0 +1,71 @@
+{
+  "version": "2026-06-26",
+  "owner": "cursor",
+  "skill": "deal-hunter",
+  "description": "Automated B2B lead generation — Cursor owns discovery, enrichment, GHL intake, qualify, pitch top scorers.",
+  "geo": {
+    "primary": ["Brevard County FL", "Melbourne FL", "Palm Bay FL", "Cocoa FL", "Titusville FL"],
+    "secondary": ["St Lucie County FL", "Port St Lucie FL", "Fort Pierce FL", "Treasure Coast FL"]
+  },
+  "icp": {
+    "industries": [
+      "HVAC",
+      "Roofing",
+      "Plumbing",
+      "Landscaping",
+      "Pest Control",
+      "Construction",
+      "Electrical",
+      "Cleaning",
+      "Med Spa",
+      "Dental",
+      "Legal",
+      "Insurance"
+    ],
+    "employee_range": "3-50",
+    "signals": [
+      "no_booking_cta",
+      "weak_gbp",
+      "no_chat_widget",
+      "outdated_website",
+      "no_review_strategy",
+      "missed_call_risk"
+    ]
+  },
+  "batch": {
+    "leads_per_run": 25,
+    "max_pitch_per_run": 5,
+    "min_qualify_score": 75,
+    "auto_qualify_score": 85,
+    "tag_prefix": "deal_hunter"
+  },
+  "discovery": {
+    "methods": ["web_search", "directory_scrape", "apollo_find_contact"],
+    "rotate_niche_daily": true,
+    "require_fields": ["companyName", "city", "industry", "phone_or_email"],
+    "ghl_contact_defaults": { "country": "US", "state": "FL", "brand_origin": "flux_labs" }
+  },
+  "ghl": {
+    "pipeline_id": "RbSKp5WldAzJFgDOwoMO",
+    "stages": {
+      "new_lead": "249f57f7-d296-451c-ace0-a0a04eecbc13",
+      "qualified": "a03eac73-3758-4108-9dfb-15de55cf5509",
+      "proposal_sent": "87a280ab-a8ea-4069-9a6e-8280dd342299"
+    },
+    "intake_tags": ["cursor_intake", "deal_hunter"],
+    "never_campaign_enroll": true,
+    "stage_triggers_workflows": true
+  },
+  "offer_matching": {
+    "outdated_no_website": { "offer": "pro_site_gbp_bundle", "service_type": "pro_site + gbp_management" },
+    "website_no_leads": { "offer": "flux_ops_growth", "service_type": "flux_ops_growth" },
+    "good_site_no_visibility": { "offer": "seo_gbp", "service_type": "full_scale_seo + gbp_management" },
+    "high_call_volume": { "offer": "flux_ops_starter", "service_type": "flux_ops_starter" },
+    "wants_more_customers": { "offer": "brand_fusion_pro", "service_type": "brand_fusion_pro_leads" }
+  },
+  "reporting": {
+    "slack_channel": "C0BDLF5JUQ4",
+    "war_room_alert_on_pitch": true
+  },
+  "schedule_ref": "automation/deal-machine-schedule.json"
+}

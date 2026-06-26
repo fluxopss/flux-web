@@ -10,11 +10,11 @@ Load `config/flow-ownership.json` before ANY action.
 
 | System | Owns | Cursor NEVER Does |
 |--------|------|-------------------|
-| **Comet Browser** | Lead gen, browser automation, GHL UI | Duplicate lead scraping |
-| **GHL** | Customer SMS/email, trials, nurture, stage-triggered workflows | Enroll workflows via Zapier, send customer comms |
+| **Comet Browser** | GHL UI, fallback browser scrape | B2B lead gen (Cursor deal-hunter owns) |
+| **GHL** | Customer SMS/email, trials, nurture, stage-triggered workflows | Customer workflow enrollment via Zapier |
 | **Website** | Stripe checkout, monthly billing | Duplicate payment links |
 | **Perplexity** | Research, scoring, outreach copy | Re-score or regenerate copy |
-| **Cursor** | Audit, gap-fill, stage sync, Stripe verify, Slack reports | Everything above |
+| **Cursor** | **B2B lead gen (deal-hunter)**, audit, gap-fill, stage sync, Stripe verify, Slack reports | Customer comms, duplicate pitches |
 
 ## Payment & Billing
 - **Stripe** = primary rail (website automations handle monthly + one-time)
@@ -28,7 +28,7 @@ Stage change inside GHL fires workflows. Cursor sets stage ONLY:
 - Proposal Sent → wf_03_proposal
 - Contract Signed → wf_04_onboard
 
-**Never call `campaign`/workflow enrollment via Zapier.**
+**Never call `campaign`/workflow enrollment via Zapier for customer/prospect workflows.** Exception: internal `War Room SMS Alert` workflow only.
 
 ## Idempotency Tags (Check Before Every Write)
 `comet_intake`, `perplexity_scored`, `ghl_wf_active`, `cursor_stage_set`, `fulfillment_complete`, `pitch_ready`
@@ -36,8 +36,11 @@ Stage change inside GHL fires workflows. Cursor sets stage ONLY:
 ## Client Record Completeness
 Load `config/client-record-schema.json`. No stage advance without required fields.
 
-## Production Skill
-Use `deal-orchestrator` (not `deal-machine`) for all production runs.
+## Production Skills
+- **`deal-hunter`** — B2B lead gen (discover → enrich → GHL intake → qualify → pitch top 5)
+- **`deal-orchestrator`** — audit, gap-fill, Stripe verify, close detect, digest
+
+Load `config/lead-gen-config.json` before every hunt run.
 
 ## Slack Routing
 - **#war-room** (`C0BDLF5JUQ4`) — ALL deal ops: digests, audits, enrichment, pipeline status
@@ -50,13 +53,15 @@ Load `config/zapier-war-room.json`. Zapier focuses on **#war-room only** for dea
 | Zapier DOES | Zapier DOES NOT |
 |-------------|-----------------|
 | Post to `#war-room` | Post to `#project-update` |
-| GHL idempotent upserts (gap fill, stage sync) | Enroll GHL workflows (`campaign`) |
-| GHL SMS ping (internal team via tag) | Customer SMS/email |
-| Stripe verify via Stripe MCP | Lead gen (Comet owns) |
-| War Room alerts to Jonathan + Heaven | Browser automation |
+| GHL lead intake + idempotent upserts | Enroll **customer** GHL workflows (`campaign`) |
+| Deal Hunter Apollo enrich + GHL writes | Customer SMS/email |
+| GHL SMS (internal War Room workflow enrollment only) | Duplicate lead intake |
+| Stripe verify via Stripe MCP | Browser automation (Comet fallback only) |
+| War Room alerts to Jonathan + Heaven | Re-pitch FLA-2026-102–106 |
 
 ## SMS Alerts (War Room)
 Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven** via **GHL only**:
-- Add tag `war_room_alert_ping` to both internal GHL contacts (requires published workflow — see `docs/deal-machine/SMS-SETUP.md`)
+- Set contact `notes` then enroll in `War Room SMS Alert` workflow via Zapier `campaign` (internal only — see `docs/deal-machine/SMS-SETUP.md`)
+- Workflow must exist in GHL first — Comet handoff: `docs/deal-machine/SMS-COMET-HANDOFF.md`
 - RingCentral is NOT used for texting
 - Always post Slack `#war-room` even if GHL SMS fails

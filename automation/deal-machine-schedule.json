@@ -1,8 +1,39 @@
 {
-  "version": "2026-06-26-revised",
+  "version": "2026-06-26-leadgen",
   "timezone": "America/New_York",
-  "overlap_policy": "Read config/flow-ownership.json before every run. Disabled agents overlap with Comet or GHL.",
+  "overlap_policy": "Cursor owns B2B lead gen via deal-hunter. GHL owns customer comms. Comet = browser fallback only.",
   "agents": [
+    {
+      "id": "deal-hunter-daily",
+      "schedule": "0 7 * * 1-5",
+      "skill": "deal-hunter",
+      "mode": "hunt",
+      "params": {
+        "leads_per_run": 25,
+        "max_pitch": 5,
+        "post_to_war_room": true,
+        "war_room_alert": true,
+        "rotate_niche": true
+      },
+      "slack_channel": "C0BDLF5JUQ4",
+      "enabled": true,
+      "note": "Primary B2B lead gen — discover, enrich, GHL intake, qualify, pitch top 5."
+    },
+    {
+      "id": "deal-hunter-saturday",
+      "schedule": "0 8 * * 6",
+      "skill": "deal-hunter",
+      "mode": "hunt",
+      "params": {
+        "leads_per_run": 15,
+        "max_pitch": 3,
+        "geo": "St Lucie County FL",
+        "post_to_war_room": true
+      },
+      "slack_channel": "C0BDLF5JUQ4",
+      "enabled": true,
+      "note": "Weekend hunt — Treasure Coast / St Lucie rotation."
+    },
     {
       "id": "revenue-digest",
       "schedule": "0 6 * * *",
@@ -21,17 +52,17 @@
       "params": { "include_pitched_batch": true, "include_enrichment_queue": true, "include_active_clients": true },
       "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
-      "note": "Validates all records. Replaces warm-lead-closer."
+      "note": "Validates all records. Runs after deal-hunter on weekdays."
     },
     {
       "id": "enrichment-queue-processor",
-      "schedule": "0 7 * * 1,3",
+      "schedule": "0 8 * * 1,3,5",
       "skill": "deal-orchestrator",
       "mode": "enrichment_queue",
       "params": { "comet_handoff_on_fail": true },
       "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
-      "note": "Processes 6 failed leads. Comet scrapes if Apollo fails."
+      "note": "Gap-fill failed intakes. Comet scrapes only when Apollo fails."
     },
     {
       "id": "stripe-close-verifier",
@@ -39,7 +70,7 @@
       "skill": "deal-orchestrator",
       "mode": "verify_close",
       "params": {
-        "watch_contract_refs": ["FLA-2026-102", "FLA-2026-103", "FLA-2026-104", "FLA-2026-105", "FLA-2026-106"],
+        "watch_contract_refs": ["FLA-2026-102", "FLA-2026-103", "FLA-2026-104", "FLA-2026-105", "FLA-2026-106", "FLA-2026-107"],
         "lookback_minutes": 30,
         "skip_if_ghl_already_signed": true
       },
@@ -65,7 +96,7 @@
       "skill": "deal-hunter",
       "mode": "hunt",
       "enabled": false,
-      "disabled_reason": "OVERLAP: Comet Browser owns lead generation. Use Comet instead."
+      "disabled_reason": "Replaced by deal-hunter-daily (Mon-Fri 7 AM)."
     },
     {
       "id": "deal-hunter-wednesday",
@@ -73,7 +104,7 @@
       "skill": "deal-hunter",
       "mode": "hunt",
       "enabled": false,
-      "disabled_reason": "OVERLAP: Comet Browser owns lead generation. Use Comet instead."
+      "disabled_reason": "Replaced by deal-hunter-daily (Mon-Fri 7 AM)."
     },
     {
       "id": "warm-lead-closer",
@@ -81,7 +112,7 @@
       "skill": "deal-machine",
       "mode": "hunt",
       "enabled": false,
-      "disabled_reason": "OVERLAP: GHL wf_02/wf_03 own qualification and pitching. Cursor audits only."
+      "disabled_reason": "Replaced by deal-hunter auto-qualify + pitch top scorers."
     }
   ]
 }

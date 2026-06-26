@@ -92,11 +92,13 @@
     "war_room_sms_alert": {
       "id": null,
       "name": "War Room SMS Alert",
-      "trigger": "Contact tag added → war_room_alert_ping",
+      "trigger": "Contact Added to Workflow (Zapier campaign enrollment)",
       "purpose": "SMS Jonathan + Heaven on critical deal events",
       "recipients": ["+17728674562", "+17727754860"],
-      "cursor_role": "war-room-alert skill adds tag to both internal contacts",
-      "status": "live_per_user_confirmation"
+      "cursor_role": "war-room-alert skill sets contact notes then enrolls via Zapier campaign",
+      "status": "missing_must_create_in_ghl",
+      "comet_handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md",
+      "verified_2026_06_26": "Not in GHL workflow list (only workflows 01-12 exist)"
     }
   },
   "ai_voice_workflows": {

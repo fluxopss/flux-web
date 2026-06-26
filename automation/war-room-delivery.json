@@ -16,12 +16,16 @@
     },
     "sms": {
       "provider": "ghl",
-      "method": "tag_trigger",
-      "ping_tag": "war_room_alert_ping",
+      "method": "workflow_enrollment",
       "workflow_name": "War Room SMS Alert",
-      "zapier_action": "HighLevelCLIAPI:add_update_contact",
+      "workflow_id": null,
+      "zapier_actions": {
+        "set_message": "HighLevelCLIAPI:add_update_contact",
+        "enroll": "HighLevelCLIAPI:campaign"
+      },
       "workflow_setup_doc": "docs/deal-machine/SMS-SETUP.md",
-      "status": "live",
+      "comet_handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md",
+      "status": "blocked_workflow_missing",
       "note": "RingCentral texting not enabled — GHL is the only SMS path"
     }
   },
