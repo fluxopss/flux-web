@@ -57,6 +57,7 @@ Load `config/zapier-war-room.json`. Zapier focuses on **#war-room only** for dea
 
 ## SMS Alerts (War Room)
 Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven** via **GHL only**:
-- Add tag `war_room_alert_ping` to both internal GHL contacts (requires published workflow — see `docs/deal-machine/SMS-SETUP.md`)
+- Set contact **notes** then enroll in **War Room SMS Alert** workflow (`sms.ghl_workflow_id`) — only allowed campaign exception
+- See `docs/deal-machine/SMS-COMET-HANDOFF.md` if workflow ID is null
 - RingCentral is NOT used for texting
 - Always post Slack `#war-room` even if GHL SMS fails

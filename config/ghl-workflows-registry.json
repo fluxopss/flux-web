@@ -92,11 +92,11 @@
     "war_room_sms_alert": {
       "id": null,
       "name": "War Room SMS Alert",
-      "trigger": "Contact tag added → war_room_alert_ping",
-      "purpose": "SMS Jonathan + Heaven on critical deal events",
+      "trigger": "Contact Added to Workflow",
+      "purpose": "SMS Jonathan + Heaven on critical deal events via {{contact.notes}}",
       "recipients": ["+17728674562", "+17727754860"],
-      "cursor_role": "war-room-alert skill adds tag to both internal contacts",
-      "status": "live_per_user_confirmation"
+      "cursor_role": "war-room-alert skill sets notes + enrolls both internal contacts (only allowed campaign exception)",
+      "status": "pending_creation_in_ghl_ui"
     }
   },
   "ai_voice_workflows": {

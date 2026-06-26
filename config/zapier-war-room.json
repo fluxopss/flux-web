@@ -36,12 +36,16 @@
       "when": "stage_sync_with_idempotency_check, verify_close_only"
     },
     "ghl_sms": {
-      "action": "HighLevelCLIAPI:add_update_contact",
-      "method": "war_room_alert_ping tag on internal contacts only"
+      "actions": {
+        "set_notes": "HighLevelCLIAPI:add_update_contact",
+        "enroll": "HighLevelCLIAPI:campaign"
+      },
+      "method": "notes_then_war_room_sms_alert_workflow_enrollment",
+      "when": "internal_leadership_only"
     }
   },
   "zapier_forbidden_actions": {
-    "ghl_campaign_enrollment": "Stage triggers handle workflows — NEVER call campaign via Zapier",
+    "ghl_campaign_enrollment": "Stage triggers handle customer workflows — NEVER call campaign except War Room SMS Alert on internal contacts",
     "customer_sms_email": "GHL workflows own all prospect/client comms",
     "lead_generation": "Comet owns browser lead gen",
     "ringcentral_sms": "GHL owns SMS — RingCentral texting not enabled",

@@ -42,10 +42,12 @@
   },
   "sms": {
     "provider": "ghl",
-    "provider_note": "GHL tag war_room_alert_ping triggers SMS workflow",
-    "ghl_ping_tag": "war_room_alert_ping",
+    "provider_note": "Set contact notes then enroll in War Room SMS Alert workflow (internal only exception to no-campaign rule)",
     "ghl_workflow_name": "War Room SMS Alert",
-    "ghl_workflow_setup": "docs/deal-machine/SMS-SETUP.md",
+    "ghl_workflow_id": null,
+    "ghl_workflow_setup": "docs/deal-machine/SMS-COMET-HANDOFF.md",
+    "delivery_method": "notes_then_campaign_enrollment",
+    "deprecated_ping_tag": "war_room_alert_ping",
     "recipients": {
       "jonathan": {
         "name": "Jonathan Augusto",
@@ -207,7 +209,8 @@
     }
   },
   "zapier_actions": {
-    "sms_ghl_ping": "HighLevelCLIAPI:add_update_contact",
+    "sms_ghl_notes": "HighLevelCLIAPI:add_update_contact",
+    "sms_ghl_enroll": "HighLevelCLIAPI:campaign",
     "email_heaven": "GoogleMailV2CLIAPI:message",
     "email_jonathan": "GoogleMailV2CLIAPI:message",
     "slack_war_room": "SlackCLIAPI:channel_message",
