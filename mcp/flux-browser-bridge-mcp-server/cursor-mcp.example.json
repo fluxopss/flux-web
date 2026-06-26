@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "flux-browser-bridge": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\jonat\\path\\to\\flux-web\\mcp\\flux-browser-bridge-mcp-server\\dist\\index.js"
+      ],
+      "env": {
+        "FLUX_BROWSER_TRANSPORT": "stdio"
+      }
+    }
+  }
+}

@@ -31,6 +31,11 @@ On each contact: **DND → OFF** for SMS. Save.
 
 ## Create workflow (GHL UI)
 
+**Option A — Desktop Cursor + `flux-browser-bridge` MCP (recommended)**  
+See `mcp/flux-browser-bridge-mcp-server/README.md` — controls your local Chrome from Desktop Cursor.
+
+**Option B — Manual clicks**
+
 1. **Automation → Workflows → Create Workflow → Start from Scratch**
 2. Name: **`War Room SMS Alert`**
 3. **Trigger:** Contact Added to Workflow *(NOT Tag Added)*
