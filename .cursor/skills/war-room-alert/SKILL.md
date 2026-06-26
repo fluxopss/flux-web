@@ -1,93 +1,88 @@
 ---
 name: war-room-alert
-description: Send War Room alerts to Slack #war-room AND SMS to Jonathan + Heaven via GHL. RingCentral is not used for texting.
+description: War Room alerts — Slack #war-room hype + Heaven triple-notify (SMS + email + Slack DM) on EVERY update. Jonathan gets SMS + war-room.
 ---
 
-# War Room Alert — Slack + GHL SMS
+# War Room Alert — Hype + Heaven Triple Notify
 
-Every important event hits **two channels**: `#war-room` on Slack AND SMS to leadership via **GHL**.
+On **every war room update**, notify **Heaven** via all three:
+1. **SMS** → +17727754860 (GHL tag ping)
+2. **Email** → heaven@fluxlab.agency (Gmail via Zapier)
+3. **Slack DM** → `U0BD0RJ9DJ5` + post to `#war-room`
+
+Jonathan gets: `#war-room` post + SMS on critical events.
 
 ## Config
-- `config/war-room-alerts.json` — recipients, templates, triggers
-- `config/zapier-war-room.json` — Zapier posts to #war-room only
-- `automation/war-room-delivery.json` — delivery paths and GHL contact IDs
-- `docs/deal-machine/SMS-SETUP.md` — one-time GHL workflow setup
-
-## SMS Recipients (Always Both)
-- **Jonathan:** +17728674562 (`jonathan@fluxlab.agency`)
-- **Heaven:** +17727754860 (`heaven@fluxlab.agency`)
-
-**SMS provider:** GHL only. RingCentral texting is not enabled.
+- `config/war-room-alerts.json` — full notify policy
 
 ---
 
-## Alert Function
+## Alert Function (Run on EVERY Update)
 
-For every war room event with `event_type` from `alert_triggers`:
+Given `event_type` and `message`:
 
-### 1. Post to Slack `#war-room` (C0BDLF5JUQ4)
+### 1. Post to `#war-room` (C0BDLF5JUQ4) — HYPE STYLE
 
-Use native Slack MCP:
-```
-slack_send_message(
-  channel_id: "C0BDLF5JUQ4",
-  message: <full detailed markdown message>
-)
-```
+Multiple posts encouraged. Use Zapier bot username `War Room` or Slack MCP.
 
-### 2. SMS via GHL (if trigger requires it)
+### 2. Heaven SMS (ALWAYS on update)
 
-Requires published GHL workflow **War Room SMS Alert** (trigger: tag `war_room_alert_ping`).
-
-For EACH internal contact (Jonathan + Heaven):
 ```
 execute_zapier_write_action[HighLevelCLIAPI:add_update_contact](
   lead: "true",
-  email: "<jonathan@fluxlab.agency | heaven@fluxlab.agency>",
-  firstName, lastName, phone,
-  tags: "internal_team,war_room_sms,<role>,war_room_alert_ping"
+  email: "heaven@fluxlab.agency",
+  firstName: "Heaven", lastName: "Yeager",
+  phone: "+17727754860",
+  tags: "internal_team,war_room_sms,coo,war_room_alert_ping"
 )
 ```
 
-GHL workflow fires → SMS to that contact → workflow removes `war_room_alert_ping` tag.
+### 3. Heaven Email (ALWAYS on update)
+
+```
+execute_zapier_write_action[GoogleMailV2CLIAPI:message](
+  to: "heaven@fluxlab.agency",
+  subject: "WAR ROOM UPDATE — {headline}",
+  body: "{message}\n\n- Flux War Room"
+)
+```
+
+### 4. Heaven Slack DM (ALWAYS on update)
+
+```
+slack_send_message(
+  channel_id: "U0BD0RJ9DJ5",
+  message: <same hype content>
+)
+```
+
+### 5. Jonathan SMS (critical events + digests)
+
+Same GHL tag ping for `jonathan@fluxlab.agency` / `+17728674562` on critical triggers.
 
 ---
 
-## SMS Message Rules
-- Max 1000 characters in GHL workflow template
-- Lead with event type: `DEAL CLOSED` | `PAYMENT IN` | `PITCHED` | `DIGEST` | `ALERT`
-- Include: company, FLA ref, dollar amount when relevant
-- End with: `-Flux War Room`
+## Heaven Contact Info (Locked)
 
-## When to SMS (Mandatory)
+| Field | Value |
+|-------|-------|
+| Email | heaven@fluxlab.agency |
+| Phone | 772-775-4860 / +17727754860 |
+| Slack | U0BD0RJ9DJ5 |
+| GHL ID | IfYpm9qp5m1NWYBTCpB4 |
 
-| Event | SMS |
-|-------|-----|
-| Deal closed / Contract Signed | ✅ |
-| Stripe payment received | ✅ |
-| New proposal pitched | ✅ |
-| Daily digest (6 AM ET) | ✅ |
-| Pitched deal unpaid 48h | ✅ |
-| Client fulfillment gap on active client | ✅ |
-| System launch / critical ops | ✅ |
-| Record audit gaps | ❌ Slack only |
-| Enrichment batch complete | ❌ Slack only |
+---
 
-## When to Also Post `#sold-clients` (C0AU0M839RD)
-- Deal closed
-- Payment received
-- Client fulfillment complete
-- Onboarding handoff
+## Event Types
 
-## Integration Points
-- `deal-orchestrator` verify_close → `deal_closed`
-- `deal-orchestrator` sync_stage proposal_sent → `proposal_sent`
-- `deal-orchestrator` digest → `daily_digest`
-- `client-fulfillment` gap on active → `client_fulfillment_gap`
+All events notify Heaven via SMS + email + Slack DM + war-room post.
+
+Use `war_room_update` for any system/config/pipeline change.
+
+---
 
 ## Constraints
-- **GHL owns all SMS** — internal and customer
-- **Never use RingCentral** for War Room alerts
-- Internal team only via `war_room_alert_ping` tag on internal contacts
-- Always post Slack even if GHL SMS fails
-- Do not duplicate SMS for same event within 60 minutes
+- GHL owns SMS delivery (tag `war_room_alert_ping`)
+- Gmail sends from connected Flux workspace account
+- Always post `#war-room` even if SMS/email fails
+- Never SMS prospects — internal Heaven/Jonathan only

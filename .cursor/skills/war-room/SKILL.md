@@ -34,6 +34,7 @@ Post **multiple messages** per run — not one summary:
 - Use 🔥💰🚀🏆⚡ liberally — this is a hype channel
 - Always include **dollar amounts** and **FLA refs**
 - Tag Jonathan (`U0ATJ7BKGT1`) and Heaven (`U0BD0RJ9DJ5`) on close targets
+- **Heaven gets triple notify on EVERY update:** SMS + email + Slack DM (see `war-room-alert` skill)
 - Post via **Slack MCP** AND **Zapier SlackCLIAPI** if needed for visibility
 - Zapier username: `War Room`
 - On critical events → `war-room-alert` skill → Slack + GHL SMS both

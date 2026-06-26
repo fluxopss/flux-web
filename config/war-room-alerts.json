@@ -7,9 +7,40 @@
     "war_room_audience": ["jonathan", "heaven"],
     "posting_policy": "post_aggressively_multiple_messages_per_run"
   },
+  "update_notify_policy": {
+    "description": "On EVERY war room update, notify Heaven via all three channels",
+    "on_every_update": true,
+    "heaven": {
+      "name": "Heaven Yeager",
+      "role": "COO",
+      "email": "heaven@fluxlab.agency",
+      "phone_e164": "+17727754860",
+      "phone_display": "772-775-4860",
+      "slack_user_id": "U0BD0RJ9DJ5",
+      "channels": {
+        "sms": true,
+        "email": true,
+        "slack_dm": true,
+        "slack_war_room": true
+      }
+    },
+    "jonathan": {
+      "name": "Jonathan Augusto",
+      "role": "CEO",
+      "email": "jonathan@fluxlab.agency",
+      "phone_e164": "+17728674562",
+      "slack_user_id": "U0ATJ7BKGT1",
+      "channels": {
+        "sms": true,
+        "email": false,
+        "slack_dm": false,
+        "slack_war_room": true
+      }
+    }
+  },
   "sms": {
     "provider": "ghl",
-    "provider_note": "RingCentral texting not enabled. GHL is the only SMS path for War Room alerts.",
+    "provider_note": "GHL tag war_room_alert_ping triggers SMS workflow",
     "ghl_ping_tag": "war_room_alert_ping",
     "ghl_workflow_name": "War Room SMS Alert",
     "ghl_workflow_setup": "docs/deal-machine/SMS-SETUP.md",
@@ -26,15 +57,31 @@
         "role": "COO",
         "phone_e164": "+17727754860",
         "phone_display": "772-775-4860",
-        "alert_level": "all"
+        "alert_level": "all_triple_notify"
       }
     },
     "max_length": 1000,
     "signature": "-Flux War Room"
   },
+  "email": {
+    "provider": "gmail",
+    "from": "contact@fluxlab.agency",
+    "zapier_action": "GoogleMailV2CLIAPI:message",
+    "heaven_on_every_update": true,
+    "subject_template": "WAR ROOM UPDATE — {headline}",
+    "body_template": "{message}\n\n- Flux War Room"
+  },
+  "slack": {
+    "war_room_channel": "C0BDLF5JUQ4",
+    "heaven_dm_user_id": "U0BD0RJ9DJ5",
+    "heaven_dm_on_every_update": true,
+    "bot_username": "War Room"
+  },
   "alert_triggers": {
     "deal_closed": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "slack_sold_clients": true,
       "priority": "critical",
@@ -42,6 +89,8 @@
     },
     "stripe_payment_received": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "slack_sold_clients": true,
       "priority": "critical",
@@ -49,27 +98,37 @@
     },
     "new_lead_qualified": {
       "sms": false,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "normal"
     },
     "proposal_sent": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "high",
       "template": "PITCHED: {company} | {offer} | {fla_ref}"
     },
     "enrichment_complete": {
       "sms": false,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "normal"
     },
     "record_gap_found": {
       "sms": false,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "normal"
     },
     "daily_digest": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "normal",
       "schedule": "0 6 * * *",
@@ -77,21 +136,35 @@
     },
     "stripe_pending_48h": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "high",
       "template": "FOLLOW UP: {company} pitched 48h ago, no payment yet | {fla_ref}"
     },
     "client_fulfillment_gap": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "high",
       "template": "CLIENT GAP: {company} missing {fields}"
     },
     "war_room_system": {
       "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
       "slack_war_room": true,
       "priority": "critical",
       "template": "WAR ROOM: {message}"
+    },
+    "war_room_update": {
+      "sms": true,
+      "email_heaven": true,
+      "slack_dm_heaven": true,
+      "slack_war_room": true,
+      "priority": "normal",
+      "template": "UPDATE: {message}"
     }
   },
   "ghl_internal_contacts": {
@@ -108,6 +181,8 @@
   },
   "zapier_actions": {
     "sms_ghl_ping": "HighLevelCLIAPI:add_update_contact",
-    "slack_war_room": "SlackCLIAPI:channel_message"
+    "email_heaven": "GoogleMailV2CLIAPI:message",
+    "slack_war_room": "SlackCLIAPI:channel_message",
+    "slack_dm_heaven": "slack_send_message"
   }
 }
