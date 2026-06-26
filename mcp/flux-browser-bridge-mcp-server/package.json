@@ -1,0 +1,33 @@
+{
+  "name": "flux-browser-bridge-mcp-server",
+  "version": "1.0.0",
+  "description": "Local MCP browser bridge for Flux War Room — controls your Windows Chrome/Edge via Playwright",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "flux-browser-bridge-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:http": "cross-env FLUX_BROWSER_TRANSPORT=http node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "postinstall": "playwright install chromium"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "express": "^4.21.2",
+    "playwright": "^1.52.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.10",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
