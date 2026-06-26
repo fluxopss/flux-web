@@ -36,6 +36,12 @@ Stage change inside GHL fires workflows. Cursor sets stage ONLY:
 ## Client Record Completeness
 Load `config/client-record-schema.json`. No stage advance without required fields.
 
+## Proposal Standard (Gold)
+Load `config/proposal-template-canonical.json` before any pitch.
+- Template: `templates/proposals/reliable-roofer-dedicated.html`
+- 6-slide dedicated HTML deck with ROI modeling — not generic PDF
+- Docs: `docs/deal-machine/PROPOSAL-TEMPLATE.md`
+
 ## Production Skills
 - **`deal-hunter`** — B2B lead gen (discover → enrich → GHL intake → qualify → pitch top 5)
 - **`deal-orchestrator`** — audit, gap-fill, Stripe verify, close detect, digest

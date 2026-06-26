@@ -1,0 +1,129 @@
+{
+  "version": "2026-06-26",
+  "canonical_reference": "templates/proposals/reliable-roofer-dedicated.html",
+  "source_filename": "reliable_roofer_dedicated.html",
+  "status": "gold_standard",
+  "description": "Dedicated 6-slide revenue pitch deck — the standard for all Flux Labs B2B proposals. Client-specific HTML slide deck, not a generic PDF.",
+  "title_pattern": "{Company Name} Revenue Pitch",
+  "format": {
+    "type": "html_slide_deck",
+    "slides": 6,
+    "navigation": "dots + prev/next + keyboard",
+    "viewport": "fullscreen 100vw x 100vh",
+    "animations": ["reveal on slide enter", "particle canvas", "gradient mesh blobs", "mouse spotlight"]
+  },
+  "design_system": {
+    "theme": "dark_premium",
+    "background": "#050816",
+    "background_deep": "#02040d",
+    "surface": "#0e1630",
+    "text_primary": "#f8fbff",
+    "text_secondary": "#d9e4ff",
+    "text_muted": "#8aa3d8",
+    "accent_1": "#1d9bff",
+    "accent_2": "#66d9ff",
+    "accent_3": "#a7f3ff",
+    "font_display": "Archivo Black",
+    "font_body": "DM Sans",
+    "card_style": "money-card — glassmorphism rounded-3xl, stat-glow on big numbers",
+    "accent_usage": "Highlight money words and industry outcome in text-accent-2 spans"
+  },
+  "slides": [
+    {
+      "number": 1,
+      "id": "cover",
+      "eyebrow": null,
+      "headline_pattern": "TURN LOCAL SEARCH INTO MORE {OUTCOME_UNIT} AND MORE REVENUE",
+      "outcome_unit_examples": ["ROOFS", "CALLS", "JOBS", "CLIENTS"],
+      "elements": ["client_logo_centered", "particle_canvas", "gradient_blobs"],
+      "tone": "Bold, uppercase hero — immediate industry-specific outcome"
+    },
+    {
+      "number": 2,
+      "id": "why_win",
+      "eyebrow": "Dedicated opportunity",
+      "headline_pattern": "Why {Company} can win more {industry_dollars_phrase}",
+      "pillars": [
+        { "number": "01", "title": "Own more local demand", "body_pattern": "Buyers already search for {services}. Capture more before competitors." },
+        { "number": "02", "title": "Convert trust faster", "body_pattern": "Polished site + local profile = licensing, credibility, offers obvious in seconds." },
+        { "number": "03", "title": "Lift job value", "body_pattern": "Position around premium work so customers see value beyond price-shopping." },
+        { "number": "04", "title": "Track the real wins", "body_pattern": "Tie growth to actual calls, estimates, and signed jobs — ROI obvious." }
+      ],
+      "layout": "2x2 grid of money-cards"
+    },
+    {
+      "number": 3,
+      "id": "modeled_upside",
+      "eyebrow": "Modeled monthly upside",
+      "headline": "What the upside could look like",
+      "scenario_pattern": "{extra_calls} additional qualified calls/mo × {close_rate}% close × ${avg_job_value} avg = visualized upside",
+      "metrics_row": ["Extra calls/mo", "Close rate", "Extra jobs/mo", "Monthly upside"],
+      "example": {
+        "extra_calls": 20,
+        "close_rate": 40,
+        "avg_job_value": 8500,
+        "monthly_upside": 68000
+      },
+      "disclaimer": "Illustrative scenario — not fantasy math. Clean way to visualize local gains."
+    },
+    {
+      "number": 4,
+      "id": "revenue_potential",
+      "eyebrow": "Revenue potential",
+      "headline": "What this could mean in real money",
+      "tiers": [
+        { "label": "Conservative", "value_pattern": "50% of modeled upside", "copy": "Even if only half lands, monthly potential still meaningful." },
+        { "label": "Base case", "value_pattern": "Full modeled upside", "copy": "At modeled close rate and avg job value, upside substantial fast." },
+        { "label": "Annualized", "value_pattern": "Base × 12", "copy": "Sustain a strong year — annual expansion opportunity massive." }
+      ],
+      "layout": "3-column money-cards with stat-glow dollar amounts"
+    },
+    {
+      "number": 5,
+      "id": "execution",
+      "eyebrow": "Execution",
+      "headline_pattern": "What Flux Labs builds for {Company}",
+      "deliverables": [
+        { "icon": "⚡", "title": "Conversion-first site", "body": "Sharper CTAs, mobile, estimate routing, service page structure." },
+        { "icon": "📍", "title": "Local SEO lift", "body": "On-page targeting around {city} {industry} services and local intent." },
+        { "icon": "⭐", "title": "GBP optimization", "body": "Categories, services, posts, photos, review flow for trust + visibility." },
+        { "icon": "🛡️", "title": "Trust positioning", "body": "License, professionalism, quality, offers where prospects see them." },
+        { "icon": "📞", "title": "Lead capture system", "body": "Click-to-call, simpler forms, tighter funnel — reduce lost leads." },
+        { "icon": "📊", "title": "ROI tracking", "body": "Line from marketing → calls → booked estimates → closed jobs." }
+      ],
+      "layout": "3x2 grid"
+    },
+    {
+      "number": 6,
+      "id": "investment_cta",
+      "eyebrow": "Friends & family investment",
+      "headline": "Small spend. Big ceiling. Clear upside.",
+      "price_display": "Large stat-glow dollar amount (hero number)",
+      "offer_line_pattern": "{Offer name} bundle",
+      "body_pattern": "Lean, fast, practical. Stronger lead engine first — scale after numbers prove out.",
+      "thesis": "Improve visibility → trust → conversion → turn local search into revenue.",
+      "cta": "Pair with Stripe checkout link + GHL Proposal Sent stage"
+    }
+  ],
+  "personalization_rules": {
+    "always_customize": ["company_name", "logo", "city", "industry", "services_list", "avg_job_value", "offer_price", "outcome_unit"],
+    "keep_fixed": ["slide_structure", "design_system", "6_slide_count", "money-card_layout", "Flux Labs deliverable categories"],
+    "pricing_source": "config/flux-ops-canonical.json offer_catalog",
+    "attach_to_deal": ["fla_contract_ref", "proposal_html_url", "ghl_custom_field_or_notes"]
+  },
+  "integration": {
+    "when_to_generate": "Proposal Sent stage (deal-hunter pitch or manual pitch)",
+    "ghl_stage": "proposal_sent",
+    "workflow": "wf_03_proposal",
+    "delivery": ["hosted HTML link in GHL notes", "email via GHL wf_03", "optional Slack #war-room pitch post"],
+    "do_not": ["Send generic PDF without ROI math", "Skip slides 3-4 revenue modeling", "Use light theme or corporate bland layout"]
+  },
+  "reference_deal": {
+    "company": "Reliable Roofer",
+    "industry": "Roofing",
+    "geo": "Port St Lucie FL",
+    "offer_shown": "Foundation website + local presence bundle",
+    "price_shown": 1600,
+    "modeled_monthly_upside": 68000
+  }
+}

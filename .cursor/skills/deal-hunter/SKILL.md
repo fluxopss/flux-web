@@ -66,12 +66,17 @@ execute_zapier_write_action[HighLevelCLIAPI:add_update_opportunity](
 - Score < 75 → tag `nurture_only`, no pitch
 
 ### 6. Pitch top scorers (max 5/run)
+
 For score >= 88 not yet pitched:
 1. Assign `fla_contract_ref` from `flux-ops-canonical.json` → `next_contract_ref`
-2. `sync_stage` to **Proposal Sent** — wf_03 fires
-3. Verify Stripe checkout link exists (website automation) or flag gap
-4. Tags: `cursor_stage_set`, `pitch_ready`, `deal_hunter_YYYY-MM-DD`
-5. **Do NOT re-pitch** FLA-2026-102 through 106
+2. **Generate dedicated proposal HTML** per `config/proposal-template-canonical.json` (gold standard: `templates/proposals/reliable-roofer-dedicated.html`)
+   - 6 slides: Cover → Why win → Modeled upside → Revenue tiers → Flux deliverables → Investment CTA
+   - Personalize: company, logo, city, industry, scenario math, offer + price
+   - Attach hosted link or file ref in GHL notes
+3. `sync_stage` to **Proposal Sent** — wf_03 fires
+4. Verify Stripe checkout link exists (website automation) or flag gap
+5. Tags: `cursor_stage_set`, `pitch_ready`, `deal_hunter_YYYY-MM-DD`
+6. **Do NOT re-pitch** FLA-2026-102 through 106 unless explicitly reset
 
 Use `deal-orchestrator` mode `sync_stage` or inline GHL opportunity upsert.
 

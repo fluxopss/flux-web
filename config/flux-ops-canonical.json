@@ -100,6 +100,14 @@
       "pro_leads": { "per_lead": 8, "min_monthly": 800, "stripe_mode": "subscription", "flag": "best_roi" }
     }
   },
+  "proposal_template": {
+    "canonical_html": "templates/proposals/reliable-roofer-dedicated.html",
+    "canonical_config": "config/proposal-template-canonical.json",
+    "documentation": "docs/deal-machine/PROPOSAL-TEMPLATE.md",
+    "format": "6_slide_html_deck",
+    "gold_standard_source": "reliable_roofer_dedicated.html",
+    "note": "All B2B proposals follow this structure — dedicated HTML, ROI modeling, dark premium design"
+  },
   "deal_machine": {
     "mission": "Hunt, orchestrate, and close deals. Cursor owns B2B lead gen via deal-hunter.",
     "production_skills": ["deal-hunter", "deal-orchestrator"],
