@@ -35,6 +35,7 @@ Post **multiple messages** per run — not one summary:
 - Always include **dollar amounts** and **FLA refs**
 - Tag Jonathan (`U0ATJ7BKGT1`) and Heaven (`U0BD0RJ9DJ5`) on close targets
 - **Heaven gets triple notify on EVERY update:** SMS + email + Slack DM (see `war-room-alert` skill)
+- **Jonathan gets triple notify on EVERY update:** SMS 772-867-4562 + jonathan@fluxlab.agency + Slack DM
 - Post via **Slack MCP** AND **Zapier SlackCLIAPI** if needed for visibility
 - Zapier username: `War Room`
 - On critical events → `war-room-alert` skill → Slack + GHL SMS both
