@@ -21,7 +21,7 @@
       "workflow_name": "War Room SMS Alert",
       "zapier_action": "HighLevelCLIAPI:add_update_contact",
       "workflow_setup_doc": "docs/deal-machine/SMS-SETUP.md",
-      "status": "requires_ghl_workflow_publish",
+      "status": "live",
       "note": "RingCentral texting not enabled — GHL is the only SMS path"
     }
   },

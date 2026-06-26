@@ -1,0 +1,137 @@
+{
+  "version": "2026-06-26",
+  "sub_account": "Flux Labs Master Template",
+  "pipeline_id": "RbSKp5WldAzJFgDOwoMO",
+  "pipeline_name": "FLA Sales Pipeline",
+  "analysis_note": "Workflow IDs verified in canonical config. War Room + AI Voice IDs should be captured from GHL UI when available.",
+  "workflow_layers": {
+    "revenue_pipeline": "Stage-triggered sales workflows — Cursor sets stage only, never enrolls",
+    "operations": "Always-on client ops automations bundled in Flux Ops retainers",
+    "internal": "Flux team alerts and routing",
+    "ai_voice": "Inbound call/chat AI — in configuration"
+  },
+  "revenue_pipeline_workflows": {
+    "wf_01_capture": {
+      "id": "workflow_6ac22c41-9e89-44a8-9b1e-7ecf9d9c4a4b",
+      "name": "01 | New Lead Capture",
+      "trigger": "Pipeline stage → New Lead",
+      "purpose": "Welcome, intake, speed-to-lead first touch, capture missing fields",
+      "cursor_role": "Upsert complete contact at New Lead — workflow auto-fires",
+      "status": "live"
+    },
+    "wf_02_qualify": {
+      "id": "workflow_adcb0b97-7ba8-41c0-a9d0-f5c1088fdb7f",
+      "name": "02 | Qualify + Trial",
+      "trigger": "Pipeline stage → Qualified",
+      "purpose": "Discovery sequence, score validation (75+), trial offer, CRM pitch",
+      "cursor_role": "Advance stage when score + required fields complete",
+      "status": "live"
+    },
+    "wf_03_proposal": {
+      "id": "workflow_d9b0da17-a66e-4b09-84d3-b63fd61eed7d",
+      "name": "03 | Proposal + Payment",
+      "trigger": "Pipeline stage → Proposal Sent",
+      "purpose": "Pitch sequence, Stripe link delivery, follow-up cadence",
+      "cursor_role": "Assign fla_contract_ref + verify Stripe link — DO NOT re-pitch FLA-102–106",
+      "status": "live",
+      "active_deals": ["FLA-2026-102", "FLA-2026-103", "FLA-2026-104", "FLA-2026-105", "FLA-2026-106"]
+    },
+    "wf_04_onboard": {
+      "id": "workflow_dbf4fd0b-8339-42b0-a8e9-962335dbe041",
+      "name": "04 | Payment → Onboard",
+      "trigger": "Pipeline stage → Contract Signed",
+      "purpose": "Payment confirmed welcome, intake forms, delivery kickoff, internal handoff",
+      "cursor_role": "verify_close sets stage after Stripe payment — workflow auto-fires",
+      "status": "live",
+      "reference_contact": "FLA-2026-101 (Perfect Client)"
+    }
+  },
+  "operations_workflows": {
+    "wf_missed_call": {
+      "id": "workflow_ccbef0e2-2c23-4ada-974f-6b44d10aaa6f",
+      "name": "Missed Call Text-Back",
+      "trigger": "Missed inbound call",
+      "purpose": "24/7 speed-to-lead SMS — Flux Ops Starter+ deliverable",
+      "cursor_role": "None — GHL + telephony owns",
+      "status": "live"
+    },
+    "speed_to_lead": {
+      "id": null,
+      "name": "Speed-to-Lead Auto-Response",
+      "trigger": "New form submit / inbound message / website form",
+      "purpose": "Sub-60-second first response — Flux Ops Growth deliverable",
+      "cursor_role": "None",
+      "status": "assumed_live_in_ghl"
+    },
+    "review_request": {
+      "id": null,
+      "name": "Review Request Sequence",
+      "trigger": "Post-delivery or scheduled",
+      "purpose": "GBP review generation — Flux Ops Growth + GBP Management",
+      "cursor_role": "None",
+      "status": "assumed_live_in_ghl"
+    },
+    "lead_nurture_drip": {
+      "id": null,
+      "name": "Lead Nurture Drip",
+      "trigger": "Non-responsive qualified leads",
+      "purpose": "Long-cycle nurture for leads not ready to buy",
+      "cursor_role": "None",
+      "status": "assumed_live_in_ghl"
+    },
+    "appointment_reminder": {
+      "id": null,
+      "name": "Appointment Reminder + No-Show Recovery",
+      "trigger": "Calendar appointment booked",
+      "purpose": "Reduce no-shows, recover missed appointments",
+      "cursor_role": "None",
+      "status": "assumed_live_in_ghl"
+    }
+  },
+  "internal_workflows": {
+    "war_room_sms_alert": {
+      "id": null,
+      "name": "War Room SMS Alert",
+      "trigger": "Contact tag added → war_room_alert_ping",
+      "purpose": "SMS Jonathan + Heaven on critical deal events",
+      "recipients": ["+17728674562", "+17727754860"],
+      "cursor_role": "war-room-alert skill adds tag to both internal contacts",
+      "status": "live_per_user_confirmation"
+    }
+  },
+  "ai_voice_workflows": {
+    "status": "in_configuration",
+    "intended_role": "Inbound receptionist — welcome, qualify, route, log every interaction",
+    "knowledge_source": "uploads/flux-labs-master-ai-knowledge-file — sections 8, 9, 14",
+    "recommended_triggers": [
+      "Inbound call answered by AI voice",
+      "After-hours call routing",
+      "Website chat widget",
+      "Callback Requested tag from voice intent"
+    ],
+    "recommended_actions": [
+      "Create/update GHL contact with call summary",
+      "Tag: Callback Requested | flux-ops-waitlist | brand-fusion-client as appropriate",
+      "Route billing → Heaven, contracts → Jonathan per routing rules",
+      "Escalate live issues: internal SMS via war_room_alert_ping",
+      "Enroll speed-to-lead or missed-call workflow if caller hangs up"
+    ],
+    "voice_standards": {
+      "opener": "Thank you for calling Flux Labs Agency — this is [Name], how can I help you today?",
+      "form_response_sla": "5 minutes when possible",
+      "urgent_escalation": "Flagging as urgent — team will reach out within the hour",
+      "tone": "Warm, direct, neighborly — never robotic"
+    }
+  },
+  "stage_trigger_map": {
+    "new_lead": "wf_01_capture",
+    "qualified": "wf_02_qualify",
+    "proposal_sent": "wf_03_proposal",
+    "contract_signed": "wf_04_onboard",
+    "missed_call": "wf_missed_call"
+  },
+  "overlap_rules": {
+    "cursor_never": ["campaign enrollment", "customer SMS", "customer email", "duplicate stage advance"],
+    "ghl_always": ["customer comms", "trial sequences", "nurture", "voice follow-up SMS"]
+  }
+}
