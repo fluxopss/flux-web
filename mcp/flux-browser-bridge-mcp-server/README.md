@@ -19,9 +19,15 @@ Cloud agents cannot reach your local browser directly — this MCP server bridge
 From your local `flux-web` repo clone:
 
 ```powershell
-cd C:\path\to\flux-web\mcp\flux-browser-bridge-mcp-server
+cd C:\Users\jonat\OneDrive\Desktop\flux-web\mcp\flux-browser-bridge-mcp-server
 npm install
 npm run build
+```
+
+Or one-shot:
+
+```powershell
+& "C:\Users\jonat\OneDrive\Desktop\flux-web\mcp\flux-browser-bridge-mcp-server\scripts\install-local.ps1"
 ```
 
 Playwright downloads Chromium on first install (`postinstall`).
@@ -62,7 +68,7 @@ Or edit `%USERPROFILE%\.cursor\mcp.json`:
     "flux-browser-bridge": {
       "command": "node",
       "args": [
-        "C:\\Users\\jonat\\path\\to\\flux-web\\mcp\\flux-browser-bridge-mcp-server\\dist\\index.js"
+        "C:\\Users\\jonat\\OneDrive\\Desktop\\flux-web\\mcp\\flux-browser-bridge-mcp-server\\dist\\index.js"
       ],
       "env": {
         "FLUX_BROWSER_TRANSPORT": "stdio"
@@ -73,6 +79,8 @@ Or edit `%USERPROFILE%\.cursor\mcp.json`:
 ```
 
 Replace the path with your actual repo location. Restart Cursor.
+
+**Jonathan's path:** `C:\Users\jonat\OneDrive\Desktop\flux-web` — see `docs/deal-machine/LOCAL-SETUP.md`.
 
 ---
 
