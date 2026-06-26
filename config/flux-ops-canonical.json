@@ -1,0 +1,102 @@
+{
+  "version": "2026-06-26",
+  "company": {
+    "legal_name": "FLUX LABS AGENCY LLC",
+    "brands": ["Flux Labs", "Flux Ops", "Brand Fusion Solutions"],
+    "location": "Melbourne, Florida",
+    "contract_prefix": "FLA"
+  },
+  "payment_rail": {
+    "primary": "stripe",
+    "stripe_account_id": "acct_1TQFfvHr9kmD1svX",
+    "stripe_display_name": "FLUX LABS AGENCY LLC",
+    "monthly_billing": "stripe_subscriptions_via_website_automations",
+    "one_time_billing": "stripe_checkout_or_invoice",
+    "legacy_note": "Square retained for legacy flows only. All new deals route through Stripe."
+  },
+  "automation_control_plane": {
+    "primary": "ghl",
+    "secondary": ["cursor_cloud_agents", "zapier_mcp"],
+    "trial_strategy": "ghl_workflows_and_trial_enrollments",
+    "philosophy": "GHL owns pipeline, stages, nurture, trials, and handoffs. Cursor orchestrates. Stripe closes."
+  },
+  "ghl": {
+    "pipeline_id": "RbSKp5WldAzJFgDOwoMO",
+    "pipeline_name": "FLA Sales Pipeline",
+    "stages": {
+      "new_lead": "249f57f7-d296-451c-ace0-a0a04eecbc13",
+      "qualified": "a03eac73-3758-4108-9dfb-15de55cf5509",
+      "proposal_sent": "87a280ab-a8ea-4069-9a6e-8280dd342299",
+      "contract_signed": "0d285ceb-b13f-4edd-a5e0-9f042ae14bdb",
+      "in_delivery": "81106b0e-4bd4-4f7d-b0cf-c746a77f6091",
+      "delivered": "501f07ad-3abb-4ad7-aa92-4159bc97b0ae",
+      "active_recurring": "7542dc89-76b1-4538-8431-1ec8801cf312"
+    },
+    "workflows": {
+      "wf_01_capture": "workflow_6ac22c41-9e89-44a8-9b1e-7ecf9d9c4a4b",
+      "wf_02_qualify": "workflow_adcb0b97-7ba8-41c0-a9d0-f5c1088fdb7f",
+      "wf_03_proposal": "workflow_d9b0da17-a66e-4b09-84d3-b63fd61eed7d",
+      "wf_04_onboard": "workflow_dbf4fd0b-8339-42b0-a8e9-962335dbe041",
+      "wf_missed_call": "workflow_ccbef0e2-2c23-4ada-974f-6b44d10aaa6f"
+    },
+    "lead_flag_default": "true",
+    "custom_fields": [
+      "ai_qualification_score",
+      "apollo_enriched",
+      "brand_origin",
+      "service_type",
+      "fla_contract_ref",
+      "account_status",
+      "post_engagement_track",
+      "lead_source",
+      "employee_count",
+      "industry"
+    ]
+  },
+  "slack": {
+    "project_update": "C0BB67LRDLZ",
+    "sold_clients": "C0AU0M839RD",
+    "company_data": "C0BANTREPPH",
+    "ai_master": "C0BAP014AQ7",
+    "bot_defaults": {
+      "as_bot": "yes",
+      "add_app_to_channel": "yes",
+      "add_edit_link": "no",
+      "unfurl": "no",
+      "link_names": "yes"
+    }
+  },
+  "apollo": {
+    "owners": {
+      "jonathan": "6a3aa3ed43a9cd0010d63e08",
+      "heaven": "6a2d6763664f86001c5391aa"
+    }
+  },
+  "offer_catalog": {
+    "flux_labs": {
+      "starter_site": { "price": 1500, "type": "one_time", "stripe_mode": "payment" },
+      "pro_site": { "price": 2500, "type": "one_time", "stripe_mode": "payment", "flag": "most_popular" },
+      "business_site": { "price": 4500, "type": "one_time", "stripe_mode": "payment" },
+      "simple_hosting": { "price": 99, "type": "monthly", "stripe_mode": "subscription" },
+      "full_scale_seo": { "price": 599, "type": "monthly", "stripe_mode": "subscription" },
+      "gbp_management": { "price": 299, "type": "monthly", "stripe_mode": "subscription" },
+      "branding_package": { "price": 799, "type": "one_time", "stripe_mode": "payment" }
+    },
+    "flux_ops": {
+      "starter": { "monthly": 397, "setup": 497, "stripe_mode": "subscription_plus_setup" },
+      "growth": { "monthly": 697, "setup": 997, "stripe_mode": "subscription_plus_setup", "flag": "best_value" },
+      "scale": { "monthly": 1197, "setup": 1997, "stripe_mode": "subscription_plus_setup" }
+    },
+    "brand_fusion": {
+      "starter_leads": { "per_lead": 12, "min_monthly": 300, "stripe_mode": "subscription" },
+      "pro_leads": { "per_lead": 8, "min_monthly": 800, "stripe_mode": "subscription", "flag": "best_roi" }
+    }
+  },
+  "deal_machine": {
+    "mission": "Every lead gets enriched, pitched, trialed, and closed through GHL with Stripe collecting cash.",
+    "daily_deal_quota": 3,
+    "min_qualification_score": 75,
+    "speed_to_lead_seconds": 60,
+    "contract_ref_format": "FLA-YYYY-###"
+  }
+}

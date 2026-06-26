@@ -1,0 +1,50 @@
+---
+description: Flux Labs Deal Machine — GHL-first automation, Stripe payments, zero manual revenue leaks.
+alwaysApply: true
+---
+
+# Flux Deal Machine (Canonical Ops)
+
+## Payment & Billing (UPDATED)
+- **Stripe is the primary payment rail** for all new deals.
+- Website automations handle **monthly recurring** and **one-time payments** through Stripe.
+- Contract ref format: `FLA-YYYY-###` attached to Stripe metadata and GHL `fla_contract_ref`.
+- Square is legacy only. Do not route new deals through Square.
+
+## Automation Control Plane (UPDATED)
+- **GHL (LeadConnector) is the brain** — pipeline, stages, workflows, trials, nurture, SMS/email sequences.
+- Cursor Cloud Agents orchestrate cross-system actions.
+- Zapier MCP executes GHL, Stripe, Apollo, Slack, Gmail reads/writes.
+- Trials run through **GHL workflow enrollments**, not ad-hoc manual outreach.
+
+## Deal Machine Stages (GHL FLA Sales Pipeline)
+1. **New Lead** → intake + wf-01 capture
+2. **Qualified** → scored 75+ + wf-02 qualify + trial enrollment
+3. **Proposal Sent** → Stripe payment link generated + wf-03 proposal
+4. **Contract Signed** → Stripe payment confirmed + wf-04 onboard
+5. **In Delivery** → Cursor delivery agent
+6. **Delivered** → upsell workflows (hosting, SEO, GBP)
+7. **Active Recurring** → Stripe subscription active
+
+## Locked IDs
+Read from `config/flux-ops-canonical.json` — never guess pipeline/stage/workflow IDs.
+
+## Slack Routing
+- `#project-update` — lead ops, enrichment, qualification, daily digest
+- `#sold-clients` — closed deals, onboarding handoffs
+- `#company-data` — catalog, pricing, ICP profiles
+- `#ai-master` — knowledge base, lead gen runs
+
+## Agent Guardrails
+- Never send outbound customer email/SMS without explicit approval unless GHL workflow is already live and approved.
+- Never publish or activate Zapier Zaps without user confirmation.
+- Always upsert GHL contacts/opportunities (idempotent writes).
+- Score leads before pitching. Min score: 75.
+- Every deal needs: email, service_type, brand_origin, ai_qualification_score, fla_contract_ref at close.
+
+## Revenue Priority Order
+1. Close warm GHL leads (score 80+)
+2. Speed-to-lead on inbound (calls, forms, replies)
+3. Flux Ops Growth trials via GHL ($697/mo recurring)
+4. Pro Site + GBP bundle ($2,500 + $299/mo)
+5. Brand Fusion lead packages (recurring)

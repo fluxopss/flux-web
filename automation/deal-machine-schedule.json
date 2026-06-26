@@ -1,0 +1,79 @@
+{
+  "version": "2026-06-26",
+  "timezone": "America/New_York",
+  "agents": [
+    {
+      "id": "revenue-digest",
+      "schedule": "0 6 * * *",
+      "skill": "deal-machine",
+      "mode": "digest",
+      "params": { "post_to_slack": true },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true
+    },
+    {
+      "id": "deal-hunter-monday",
+      "schedule": "0 7 * * 1",
+      "skill": "deal-hunter",
+      "params": {
+        "county": "Brevard",
+        "niche_rotation": ["hvac", "roofing", "plumbing", "landscaping", "pest"],
+        "lead_count": 25,
+        "auto_pitch_top": 5
+      },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true
+    },
+    {
+      "id": "deal-hunter-wednesday",
+      "schedule": "0 7 * * 3",
+      "skill": "deal-hunter",
+      "params": {
+        "county": "St. Lucie",
+        "niche_rotation": ["hvac", "roofing", "plumbing", "construction", "dental"],
+        "lead_count": 25,
+        "auto_pitch_top": 5
+      },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true
+    },
+    {
+      "id": "warm-lead-closer",
+      "schedule": "0 8 * * 1-5",
+      "skill": "deal-machine",
+      "mode": "hunt",
+      "params": {
+        "min_score": 80,
+        "auto_qualify": true,
+        "auto_pitch": true,
+        "max_pitches": 10
+      },
+      "slack_channel": "C0BB67LRDLZ",
+      "enabled": true
+    },
+    {
+      "id": "stripe-close-watcher",
+      "schedule": "*/30 * * * *",
+      "skill": "ghl-stripe-close",
+      "params": {
+        "watch_stripe_events": true,
+        "lookback_minutes": 30
+      },
+      "slack_channel": "C0AU0M839RD",
+      "enabled": true
+    },
+    {
+      "id": "expansion-friday",
+      "schedule": "0 9 * * 5",
+      "skill": "deal-machine",
+      "mode": "expand",
+      "params": {
+        "target_stage": "delivered",
+        "upsell_priority": ["hosting", "seo", "gbp"]
+      },
+      "slack_channel": "C0AU0M839RD",
+      "enabled": true
+    }
+  ],
+  "notes": "Activate via Cursor Cloud Agents or Zapier scheduled triggers. Each agent reads config/flux-ops-canonical.json for locked IDs."
+}
