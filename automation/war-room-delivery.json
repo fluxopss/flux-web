@@ -1,0 +1,57 @@
+{
+  "version": "2026-06-26",
+  "description": "War Room alert delivery matrix — Slack always, SMS when trigger requires",
+  "recipients": {
+    "slack_war_room": "C0BDLF5JUQ4",
+    "slack_sold_clients": "C0AU0M839RD",
+    "sms_jonathan": "+17728674562",
+    "sms_heaven": "+17727754860"
+  },
+  "delivery_paths": {
+    "slack": {
+      "provider": "slack_mcp",
+      "tool": "slack_send_message",
+      "channel_id": "C0BDLF5JUQ4",
+      "status": "live"
+    },
+    "sms_primary": {
+      "provider": "ghl_tag_trigger",
+      "method": "Add tag war_room_alert_ping to both internal contacts via HighLevelCLIAPI:add_update_contact",
+      "requires_workflow": "War Room SMS Alert (GHL)",
+      "workflow_setup_doc": "docs/deal-machine/SMS-SETUP.md",
+      "status": "pending_ghl_workflow"
+    },
+    "sms_backup_ringcentral": {
+      "provider": "ringcentral",
+      "from_number": "+17727427052",
+      "from_number_id": 2563383011,
+      "zapier_action": "RingCentralCLIAPI:send_sms",
+      "blocker": "OutboundSMS permission not granted to Zapier OAuth user",
+      "status": "blocked"
+    },
+    "sms_backup_twilio": {
+      "provider": "twilio",
+      "zapier_action": "TwilioCLIAPI:smsv2",
+      "status": "needs_auth"
+    }
+  },
+  "ghl_internal_contacts": {
+    "jonathan": {
+      "email": "jonathan@fluxlab.agency",
+      "ghl_contact_id": "qhGUDsW47iLWg8vscFlZ",
+      "phone": "+17728674562",
+      "tags": ["internal_team", "war_room_sms", "ceo"]
+    },
+    "heaven": {
+      "email": "heaven@fluxlab.agency",
+      "ghl_contact_id": "IfYpm9qp5m1NWYBTCpB4",
+      "phone": "+17727754860",
+      "tags": ["internal_team", "war_room_sms", "coo"]
+    }
+  },
+  "idempotency": {
+    "tag_prefix": "sms_sent_",
+    "cooldown_minutes": 60,
+    "ghl_ping_tag": "war_room_alert_ping"
+  }
+}

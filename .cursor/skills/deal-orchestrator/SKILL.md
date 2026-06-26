@@ -59,7 +59,7 @@ Required: `email`, `target_stage`, `fla_contract_ref` (if proposal+)
 4. Upsert GHL opportunity to target `stageId` ONLY
 5. **Do NOT call campaign/workflow enrollment** — GHL stage trigger handles it
 6. Add tags: `cursor_stage_set`, stage-specific tag
-7. Post stage sync report to `#project-update`
+7. Post stage sync report to `#war-room` via `war-room-alert` (`proposal_sent` if target is proposal_sent)
 
 ### `verify_close` — Stripe → GHL Confirmation
 Required: `fla_contract_ref`
@@ -70,7 +70,7 @@ Required: `fla_contract_ref`
    - If GHL stage is already `contract_signed`, SKIP
    - Upsert opportunity to Contract Signed stage ONLY
    - **Do NOT enroll wf-04** — GHL stage trigger handles it
-4. Post to `#sold-clients` (username: `Client Ops`)
+4. Post to `#war-room` via `war-room-alert` skill — Slack + SMS if payment confirmed
 5. If website project, trigger delivery handoff checklist
 
 ### `fulfill_client` — Active Client Completeness
@@ -85,10 +85,10 @@ Required: `email` or `fla_contract_ref`
 
 ### `digest` — Revenue War Room (Read-Only + Report)
 1. Audit all pitched deals from `pitched_batch_2026_06_26`
-2. Audit enrichment queue (6 pending)
+2. Audit enrichment queue status
 3. Check Stripe for payments on FLA-2026-102 through 106
 4. Summarize: complete records, gaps, payments received, revenue at stake
-5. Post to `#project-update` (username: `Revenue Digest`)
+5. Post to `#war-room` via `war-room-alert` skill (`daily_digest` event) — Slack + SMS
 6. Return `recommended_next_mode` based on biggest gap
 
 ### `enrichment_queue` — Process the 6 Failed Leads

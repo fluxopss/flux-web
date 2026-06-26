@@ -43,3 +43,9 @@ Use `deal-orchestrator` (not `deal-machine`) for all production runs.
 - **#war-room** (`C0BDLF5JUQ4`) — ALL deal ops: digests, audits, enrichment, pipeline status
 - **#sold-clients** — contract signed + onboarding only
 - **#project-update** — engineering/build updates only
+
+## SMS Alerts (War Room)
+Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven**:
+- Primary: GHL tag `war_room_alert_ping` on internal contacts (requires GHL workflow — see `docs/deal-machine/SMS-SETUP.md`)
+- Backup: RingCentral `+17727427052` (needs OutboundSMS permission on Zapier OAuth)
+- Always post Slack `#war-room` even if SMS fails

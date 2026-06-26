@@ -1,0 +1,116 @@
+{
+  "version": "2026-06-26",
+  "channel": {
+    "slack_war_room": "C0BDLF5JUQ4",
+    "slack_sold_clients": "C0AU0M839RD"
+  },
+  "sms": {
+    "provider": "ghl_tag_trigger",
+    "provider_fallback": "ringcentral",
+    "from_number_e164": "+17727427052",
+    "from_number_id": 2563383011,
+    "from_account": "contact@fluxlab.agency",
+    "ghl_ping_tag": "war_room_alert_ping",
+    "ghl_workflow_name": "War Room SMS Alert",
+    "ghl_workflow_setup": "docs/deal-machine/SMS-SETUP.md",
+    "ringcentral_blocker": "OutboundSMS permission required on Zapier OAuth user — see SMS-SETUP.md Step 2",
+    "recipients": {
+      "jonathan": {
+        "name": "Jonathan Augusto",
+        "role": "CEO",
+        "phone_e164": "+17728674562",
+        "phone_display": "772-867-4562",
+        "alert_level": "all"
+      },
+      "heaven": {
+        "name": "Heaven Yeager",
+        "role": "COO",
+        "phone_e164": "+17727754860",
+        "phone_display": "772-775-4860",
+        "alert_level": "all"
+      }
+    },
+    "max_length": 1000,
+    "signature": "-Flux War Room"
+  },
+  "alert_triggers": {
+    "deal_closed": {
+      "sms": true,
+      "slack_war_room": true,
+      "slack_sold_clients": true,
+      "priority": "critical",
+      "template": "DEAL CLOSED: {company} | {fla_ref} | {amount} | {service_type}"
+    },
+    "stripe_payment_received": {
+      "sms": true,
+      "slack_war_room": true,
+      "slack_sold_clients": true,
+      "priority": "critical",
+      "template": "PAYMENT IN: {fla_ref} | {amount} | {company}"
+    },
+    "new_lead_qualified": {
+      "sms": false,
+      "slack_war_room": true,
+      "priority": "normal"
+    },
+    "proposal_sent": {
+      "sms": true,
+      "slack_war_room": true,
+      "priority": "high",
+      "template": "PITCHED: {company} | {offer} | {fla_ref}"
+    },
+    "enrichment_complete": {
+      "sms": false,
+      "slack_war_room": true,
+      "priority": "normal"
+    },
+    "record_gap_found": {
+      "sms": false,
+      "slack_war_room": true,
+      "priority": "normal"
+    },
+    "daily_digest": {
+      "sms": true,
+      "slack_war_room": true,
+      "priority": "normal",
+      "schedule": "0 6 * * *",
+      "template": "WAR ROOM DIGEST: {pitched} pitched | {pending_payments} awaiting payment | ${revenue_at_stake} at stake"
+    },
+    "stripe_pending_48h": {
+      "sms": true,
+      "slack_war_room": true,
+      "priority": "high",
+      "template": "FOLLOW UP: {company} pitched 48h ago, no payment yet | {fla_ref}"
+    },
+    "client_fulfillment_gap": {
+      "sms": true,
+      "slack_war_room": true,
+      "priority": "high",
+      "template": "CLIENT GAP: {company} missing {fields}"
+    },
+    "war_room_system": {
+      "sms": true,
+      "slack_war_room": true,
+      "priority": "critical",
+      "template": "WAR ROOM: {message}"
+    }
+  },
+  "ghl_internal_contacts": {
+    "jonathan": {
+      "email": "jonathan@fluxlab.agency",
+      "ghl_contact_id": "qhGUDsW47iLWg8vscFlZ",
+      "phone_e164": "+17728674562"
+    },
+    "heaven": {
+      "email": "heaven@fluxlab.agency",
+      "ghl_contact_id": "IfYpm9qp5m1NWYBTCpB4",
+      "phone_e164": "+17727754860"
+    }
+  },
+  "zapier_actions": {
+    "sms_ghl_ping": "HighLevelCLIAPI:add_update_contact",
+    "sms_broadcast": "RingCentralCLIAPI:send_message_thread_sms",
+    "sms_single": "RingCentralCLIAPI:send_sms",
+    "slack_war_room": "SlackCLIAPI:channel_message"
+  }
+}

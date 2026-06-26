@@ -8,7 +8,7 @@
       "schedule": "0 6 * * *",
       "skill": "deal-orchestrator",
       "mode": "digest",
-      "params": { "post_to_slack": true },
+      "params": { "post_to_slack": true, "sms_alert": true },
       "slack_channel": "C0BDLF5JUQ4",
       "enabled": true,
       "note": "Read-only audit + Slack report. No writes unless gaps found."
@@ -44,6 +44,7 @@
         "skip_if_ghl_already_signed": true
       },
       "slack_channel": "C0AU0M839RD",
+      "war_room_sms_on_close": true,
       "enabled": true,
       "note": "Only advances stage if Stripe paid AND GHL not already Contract Signed."
     },
