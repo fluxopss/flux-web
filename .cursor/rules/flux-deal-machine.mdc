@@ -49,9 +49,9 @@ Load `config/proposal-template-canonical.json` before any pitch.
 Load `config/lead-gen-config.json` before every hunt run.
 
 ## Slack Routing
-- **#war-room** (`C0BDLF5JUQ4`) — ALL deal ops: digests, audits, enrichment, pipeline status
-- **#sold-clients** — contract signed + onboarding only
-- **#project-update** — engineering/build updates only
+- **#war-room** (`C0BDLF5JUQ4`) — **ALL agent Slack posts. Monster sales hype. 5+ posts per run. @mention Jonathan + Heaven. NO DMs. NO sold-clients.**
+- **#sold-clients** — humans only; agents post closes in war-room with 🏆
+- **#project-update** — engineering only — never deal ops
 
 ## Zapier MCP Scope
 Load `config/zapier-war-room.json`. Zapier focuses on **#war-room only** for deal ops.
@@ -63,7 +63,7 @@ Load `config/zapier-war-room.json`. Zapier focuses on **#war-room only** for dea
 | Deal Hunter Apollo enrich + GHL writes | Customer SMS/email |
 | GHL SMS (internal War Room workflow enrollment only) | Duplicate lead intake |
 | Stripe verify via Stripe MCP | Browser automation (Comet fallback only) |
-| War Room alerts to Jonathan + Heaven | Re-pitch FLA-2026-102–106 |
+| War Room monster hype in `#war-room` only (@mention leaders) | Slack DMs, #sold-clients, #project-update |
 
 ## SMS Alerts (War Room)
 Load `config/war-room-alerts.json`. Critical events SMS **Jonathan + Heaven** via **GHL only**:

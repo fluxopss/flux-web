@@ -4,15 +4,18 @@
   "primary_slack_channel": {
     "id": "C0BDLF5JUQ4",
     "name": "#war-room",
-    "purpose": "SALES HYPE — keep Jonathan + Heaven locked in. Post aggressively, multiple messages per run.",
+    "purpose": "MONSTER SALES HYPE — ALL agent Slack posts go here ONLY. No DMs. No sold-clients. Minimum 5 posts per run.",
     "bot_username": "War Room",
-    "posting_policy": "hype_first_multiple_posts"
+    "posting_policy": "war_room_only_monster_hype",
+    "mention_jonathan": "U0ATJ7BKGT1",
+    "mention_heaven": "U0BD0RJ9DJ5"
   },
   "secondary_slack_channels": {
     "sold_clients": {
       "id": "C0AU0M839RD",
       "name": "#sold-clients",
-      "when": "deal_closed or payment_received ONLY — after war-room post"
+      "agent_posts": false,
+      "note": "Humans only — agents post closes in #war-room with trophy emoji"
     }
   },
   "do_not_post_via_zapier": [

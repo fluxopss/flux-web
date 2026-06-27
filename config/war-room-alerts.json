@@ -2,10 +2,14 @@
   "version": "2026-06-26",
   "channel": {
     "slack_war_room": "C0BDLF5JUQ4",
-    "slack_sold_clients": "C0AU0M839RD",
-    "war_room_purpose": "sales_hype",
+    "slack_all_posts_here": true,
+    "slack_no_dms": true,
+    "slack_no_sold_clients_for_agents": true,
+    "slack_mention_jonathan": "U0ATJ7BKGT1",
+    "slack_mention_heaven": "U0BD0RJ9DJ5",
+    "war_room_purpose": "monster_sales_hype_only_channel",
     "war_room_audience": ["jonathan", "heaven"],
-    "posting_policy": "post_aggressively_multiple_messages_per_run"
+    "posting_policy": "minimum_5_hype_posts_per_run_tag_both_leaders"
   },
   "update_notify_policy": {
     "description": "On EVERY war room update, notify Jonathan + Heaven via SMS + email + Slack DM",
@@ -21,8 +25,9 @@
       "channels": {
         "sms": true,
         "email": true,
-        "slack_dm": true,
-        "slack_war_room": true
+        "slack_dm": false,
+        "slack_war_room": true,
+        "slack_war_room_only": true
       }
     },
     "jonathan": {
@@ -35,8 +40,9 @@
       "channels": {
         "sms": true,
         "email": true,
-        "slack_dm": true,
-        "slack_war_room": true
+        "slack_dm": false,
+        "slack_war_room": true,
+        "slack_war_room_only": true
       }
     }
   },
