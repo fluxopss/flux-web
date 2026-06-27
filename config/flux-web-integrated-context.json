@@ -116,7 +116,7 @@
     "integrated": ".cursor/rules/flux-web-integrated.mdc"
   },
   "docs_index": {
-    "integrated": "docs/flux-web/INTEGRATED-CONTEXT.md",
+    "setup_guide": "docs/flux-web/SETUP-GUIDE.md",
     "playbook": "docs/deal-machine/PLAYBOOK.md",
     "pipeline": "docs/deal-machine/PIPELINE-CONFIRMED.md",
     "boundaries": "docs/deal-machine/FLOW-BOUNDARIES.md",
