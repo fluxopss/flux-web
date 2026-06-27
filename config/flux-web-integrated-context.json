@@ -1,0 +1,145 @@
+{
+  "version": "2026-06-26",
+  "purpose": "Single integrated memory for ALL flux-web Cursor chats (cloud, desktop, future sessions). Load this first.",
+  "bootstrap_skill": ".cursor/skills/flux-web-context/SKILL.md",
+  "human_doc": "docs/flux-web/INTEGRATED-CONTEXT.md",
+  "branch": "cursor/deal-machine-stripe-ghl-fd95",
+  "pr": "https://github.com/fluxopss/flux-web/pull/1",
+  "chat_threads_integrated": [
+    {
+      "topic": "war_room_automation",
+      "decisions": ["#war-room is sales hype channel", "post aggressively multi-message", "Zapier posts deal ops to war-room only", "never #project-update for deal ops"]
+    },
+    {
+      "topic": "leadership_notify",
+      "decisions": ["Jonathan + Heaven triple-notify on EVERY war room update", "SMS + Gmail + Slack DM + #war-room", "internal contacts only"]
+    },
+    {
+      "topic": "sms_delivery",
+      "decisions": ["GHL only for SMS", "RingCentral texting NOT enabled", "War Room SMS Alert workflow MISSING in GHL", "fix: workflow enrollment not tag ping", "blocked until GHL workflow created"]
+    },
+    {
+      "topic": "ownership_boundaries",
+      "decisions": ["Cursor owns B2B lead gen (deal-hunter)", "GHL owns customer comms + stage workflows", "Comet = GHL UI + browser fallback", "Website owns Stripe checkout", "Never Zapier campaign enroll for customer workflows"]
+    },
+    {
+      "topic": "lead_gen_automation",
+      "decisions": ["deal-hunter re-enabled", "Mon-Fri 7 AM + Sat St Lucie", "25 leads/run, pitch top 5", "first hunt FLA-2026-107 pitched"]
+    },
+    {
+      "topic": "proposal_standard",
+      "decisions": ["reliable_roofer_dedicated.html is gold standard", "6-slide HTML deck with ROI modeling", "personalize per client on pitch"]
+    },
+    {
+      "topic": "desktop_cursor",
+      "decisions": ["Desktop for GHL UI + local files", "Cloud for autopilot hunt/close/audit", "handoff prompt in INTEGRATED-CONTEXT.md"]
+    },
+    {
+      "topic": "pipeline_lock",
+      "decisions": ["FLA-2026-102 through 106 DO NOT re-pitch", "wf_03 running on pitched batch", "Stripe 0/6 paid as of last verify"]
+    }
+  ],
+  "leadership": {
+    "jonathan": {
+      "name": "Jonathan Augusto",
+      "role": "CEO",
+      "email": "jonathan@fluxlab.agency",
+      "phone_e164": "+17728674562",
+      "slack_user_id": "U0ATJ7BKGT1",
+      "ghl_contact_id": "qhGUDsW47iLWg8vscFlZ"
+    },
+    "heaven": {
+      "name": "Heaven Yeager",
+      "role": "COO",
+      "email": "heaven@fluxlab.agency",
+      "phone_e164": "+17727754860",
+      "slack_user_id": "U0BD0RJ9DJ5",
+      "ghl_contact_id": "IfYpm9qp5m1NWYBTCpB4"
+    }
+  },
+  "slack_channels": {
+    "war_room": { "id": "C0BDLF5JUQ4", "name": "#war-room", "use": "ALL deal ops, hype, hunt reports, audits, digests" },
+    "sold_clients": { "id": "C0AU0M839RD", "name": "#sold-clients", "use": "deal closed + onboarding only" },
+    "project_update": { "id": "C0BB67LRDLZ", "name": "#project-update", "use": "engineering/build ONLY — never deal ops" },
+    "company_data": { "id": "C0BANTREPPH", "name": "#company-data", "use": "data ops — not deal machine default" },
+    "ai_master": { "id": "C0BAP014AQ7", "name": "#ai-master", "use": "AI config — not deal machine default" }
+  },
+  "blockers": [
+    {
+      "id": "ghl_war_room_sms_workflow",
+      "severity": "high",
+      "status": "open",
+      "fix": "Create War Room SMS Alert in GHL (Contact Added to Workflow trigger)",
+      "handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md",
+      "workaround": "Slack + email alerts live; SMS skipped until workflow ID in config"
+    },
+    {
+      "id": "stripe_pitched_unpaid",
+      "severity": "medium",
+      "status": "watching",
+      "refs": ["FLA-2026-102", "FLA-2026-103", "FLA-2026-104", "FLA-2026-105", "FLA-2026-106", "FLA-2026-107"],
+      "fix": "GHL wf_03/wf_08 follow-up + stripe-close-verifier every 30 min"
+    }
+  ],
+  "live_state": {
+    "source": "automation/deal-machine-tracker.json",
+    "refresh": "Update tracker after every hunt, pitch, or close",
+    "pitched_active": 6,
+    "next_contract_ref": "FLA-2026-108",
+    "leads_in_ghl": 53,
+    "revenue_one_time_potential": 5997,
+    "revenue_mrr_potential": 3985
+  },
+  "config_index": {
+    "canonical": "config/flux-ops-canonical.json",
+    "ownership": "config/flow-ownership.json",
+    "war_room_alerts": "config/war-room-alerts.json",
+    "zapier_war_room": "config/zapier-war-room.json",
+    "lead_gen": "config/lead-gen-config.json",
+    "proposal_template": "config/proposal-template-canonical.json",
+    "client_records": "config/client-record-schema.json",
+    "ghl_workflows": "config/ghl-workflows-registry.json",
+    "schedule": "automation/deal-machine-schedule.json",
+    "tracker": "automation/deal-machine-tracker.json"
+  },
+  "skills_index": {
+    "bootstrap": "flux-web-context",
+    "lead_gen": "deal-hunter",
+    "orchestrator": "deal-orchestrator",
+    "war_room": "war-room",
+    "war_room_alert": "war-room-alert",
+    "stripe_close": "ghl-stripe-close",
+    "fulfillment": "client-fulfillment"
+  },
+  "rules_index": {
+    "deal_machine": ".cursor/rules/flux-deal-machine.mdc",
+    "integrated": ".cursor/rules/flux-web-integrated.mdc"
+  },
+  "docs_index": {
+    "integrated": "docs/flux-web/INTEGRATED-CONTEXT.md",
+    "playbook": "docs/deal-machine/PLAYBOOK.md",
+    "pipeline": "docs/deal-machine/PIPELINE-CONFIRMED.md",
+    "boundaries": "docs/deal-machine/FLOW-BOUNDARIES.md",
+    "ghl_workflows": "docs/deal-machine/GHL-WORKFLOW-ANALYSIS.md",
+    "proposal": "docs/deal-machine/PROPOSAL-TEMPLATE.md",
+    "sms_setup": "docs/deal-machine/SMS-SETUP.md",
+    "sms_handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md"
+  },
+  "local_files_windows": {
+    "note": "Desktop Cursor only — not in repo",
+    "master_knowledge": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-labs-master-ai-knowledge-file.txt",
+    "pricing_pdf": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-labs-complete-pricing.pdf",
+    "competitive": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-competitive-breakdown.jsx"
+  },
+  "golden_rules": [
+    "Read config/flux-web-integrated-context.json + automation/deal-machine-tracker.json before any action",
+    "GHL stage change fires workflows — never Zapier campaign for customers",
+    "Exception: internal War Room SMS workflow only",
+    "Do not re-pitch FLA-2026-102 through 106",
+    "Post deal ops to #war-room only",
+    "Triple-notify Jonathan + Heaven on every war room update",
+    "Proposals follow reliable-roofer 6-slide template",
+    "Cursor deal-hunter owns B2B lead gen",
+    "Stripe confirms close — verify before Contract Signed"
+  ]
+}

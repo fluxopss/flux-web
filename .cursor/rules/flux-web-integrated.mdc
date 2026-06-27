@@ -1,0 +1,32 @@
+---
+description: Integrated memory from all flux-web Cursor chats. Load before any flux-web task.
+alwaysApply: true
+---
+
+# Flux-Web Integrated Chats
+
+All flux-web sessions (cloud, desktop, future) share one context layer.
+
+## First action every session
+
+1. Read `config/flux-web-integrated-context.json`
+2. Read `automation/deal-machine-tracker.json` for live pipeline state
+3. Use skill `flux-web-context` when starting cold
+
+## Integrated decisions (do not re-debate)
+
+- **#war-room** (`C0BDLF5JUQ4`) = all deal ops + hype
+- **Jonathan + Heaven** = triple-notify every update (Slack DM + email + war-room; SMS when GHL workflow exists)
+- **Cursor** owns B2B lead gen via `deal-hunter`
+- **GHL** owns customer comms; stage change fires workflows
+- **FLA-2026-102–106** = DO NOT re-pitch
+- **Proposals** = `templates/proposals/reliable-roofer-dedicated.html` structure
+- **SMS blocker** = War Room SMS Alert workflow missing in GHL — see `docs/deal-machine/SMS-COMET-HANDOFF.md`
+
+## Full narrative
+
+`docs/flux-web/INTEGRATED-CONTEXT.md`
+
+## Canonical configs
+
+See `config/flux-web-integrated-context.json` → `config_index`, `skills_index`, `golden_rules`

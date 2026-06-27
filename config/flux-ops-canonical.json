@@ -126,6 +126,12 @@
     "ghl": "customer_comms,trials,nurture,stage_workflows",
     "website": "stripe_checkout,monthly_billing",
     "perplexity": "research,scoring,outreach_copy",
-    "cursor": "lead_gen,hunt,audit,gap_fill,stage_sync,stripe_verify,slack_reports,delivery_handoff",
+    "cursor": "lead_gen,hunt,audit,gap_fill,stage_sync,stripe_verify,slack_reports,delivery_handoff"
+  },
+  "integrated_context": {
+    "json": "config/flux-web-integrated-context.json",
+    "doc": "docs/flux-web/INTEGRATED-CONTEXT.md",
+    "bootstrap_skill": "flux-web-context",
+    "note": "Load first in every flux-web chat — cloud or desktop"
   }
 }
