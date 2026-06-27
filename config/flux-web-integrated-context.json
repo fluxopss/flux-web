@@ -3,8 +3,9 @@
   "purpose": "Single integrated memory for ALL flux-web Cursor chats (cloud, desktop, future sessions). Load this first.",
   "bootstrap_skill": ".cursor/skills/flux-web-context/SKILL.md",
   "human_doc": "docs/flux-web/INTEGRATED-CONTEXT.md",
-  "branch": "cursor/deal-machine-stripe-ghl-fd95",
-  "pr": "https://github.com/fluxopss/flux-web/pull/1",
+  "branch": "main",
+  "pr": "https://github.com/fluxopss/flux-web/pull/1 — merged 2026-06-26",
+  "main_merged": true,
   "chat_threads_integrated": [
     {
       "topic": "war_room_automation",
