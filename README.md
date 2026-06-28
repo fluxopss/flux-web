@@ -50,7 +50,6 @@ Run verify_close for FLA-2026-102 through 107
 | `automation/deal-machine-tracker.json` | Live pipeline state |
 | `automation/deal-machine-schedule.json` | Agent schedule |
 | `docs/flux-web/INTEGRATED-CONTEXT.md` | Integrated chat memory |
-| `flux-reset/` | Packaged reset-chat snapshot bundle |
 | `docs/deal-machine/PLAYBOOK.md` | Operating playbook |
 
 ### Slack Routing

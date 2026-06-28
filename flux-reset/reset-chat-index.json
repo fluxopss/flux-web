@@ -1,158 +1,70 @@
 {
   "package_name": "flux-reset",
-  "packaged_at": "2026-06-28",
-  "source_repo": {
-    "name": "flux-web",
-    "url": "https://github.com/fluxopss/flux-web",
-    "branch": "main",
-    "commit": "7648a01431c16399d15ca29ed529898b4ddd70f6"
+  "subject": {
+    "project_name": "The Reset",
+    "brand_name": "The Reset Social Club",
+    "website": "https://the-reset.com/"
   },
-  "notes": [
-    "This package contains the reset-chat memory that currently exists in the repository.",
-    "The repository does not contain raw per-chat transcript exports.",
-    "The integrated context layer is the canonical durable record of the prior chats."
-  ],
-  "included_artifacts": [
+  "packaged_at": "2026-06-28",
+  "source_workspace_repo": {
+    "name": "flux-web",
+    "branch": "cursor/flux-reset-e4c3"
+  },
+  "source_channel": {
+    "name": "#ai-master",
+    "id": "C0BAP014AQ7",
+    "platform": "Slack"
+  },
+  "summary": {
+    "threads_collected": 3,
+    "standalone_messages_collected": 1,
+    "total_messages_packaged": 9
+  },
+  "packaged_items": [
     {
-      "path": "flux-reset/context-bundle.json",
-      "role": "machine_readable_snapshot"
-    },
-    {
-      "path": "flux-reset/FLUX-RESET-PACK.md",
-      "role": "human_readable_export"
-    },
-    {
-      "path": "config/flux-web-integrated-context.json",
-      "role": "original_integrated_context_source"
-    },
-    {
-      "path": "docs/flux-web/INTEGRATED-CONTEXT.md",
-      "role": "original_human_context_source"
-    },
-    {
-      "path": "automation/deal-machine-tracker.json",
-      "role": "original_live_state_source"
-    }
-  ],
-  "reset_chats_present": [
-    {
-      "topic": "war_room_automation",
-      "summary": "#war-room is the operating channel for deal ops and hype."
-    },
-    {
-      "topic": "leadership_notify",
-      "summary": "Jonathan and Heaven are part of the notification flow on updates."
-    },
-    {
-      "topic": "sms_delivery",
-      "summary": "GHL owns SMS, with the War Room SMS workflow still blocked pending creation."
-    },
-    {
-      "topic": "ownership_boundaries",
-      "summary": "Cursor, GHL, Comet, Website, and Zapier boundaries are locked."
-    },
-    {
-      "topic": "lead_gen_automation",
-      "summary": "deal-hunter is active for scheduled B2B lead generation."
-    },
-    {
-      "topic": "proposal_standard",
-      "summary": "The reliable roofer dedicated HTML deck is the proposal standard."
-    },
-    {
-      "topic": "desktop_cursor",
-      "summary": "Desktop handles local and UI work; cloud handles autopilot operations."
-    },
-    {
-      "topic": "pipeline_lock",
-      "summary": "FLA-2026-102 through 107 are locked state references for follow-up and close watch."
-    }
-  ],
-  "commit_timeline": [
-    {
-      "commit": "67f7089",
+      "id": "reset-screenshot-request-thread",
+      "type": "thread",
       "date": "2026-06-24",
-      "message": "Initial commit"
+      "channel": "#ai-master",
+      "message_ts": "1782312239.155369",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782312239155369?thread_ts=1782312239.155369&cid=C0BAP014AQ7",
+      "path": "flux-reset/chats/ai-master-reset-screenshot-thread.md",
+      "description": "Request to post a screenshot of The Reset website plus the bot confirmation reply."
     },
     {
-      "commit": "d5fea2e",
-      "date": "2026-06-26",
-      "message": "Build Deal Machine: GHL-first automation with Stripe payment close pipeline"
+      "id": "reset-local-desktop-thread",
+      "type": "thread",
+      "date": "2026-06-24",
+      "channel": "#ai-master",
+      "message_ts": "1782312392.925759",
+      "permalink": null,
+      "path": "flux-reset/chats/ai-master-reset-local-desktop-thread.md",
+      "description": "Status note that the website was a local desktop app under active development."
     },
     {
-      "commit": "a2bb240",
-      "date": "2026-06-26",
-      "message": "Lock zero-overlap orchestration: Comet/GHL/Cursor boundaries + client fulfillment"
+      "id": "reset-screenshot-post",
+      "type": "message",
+      "date": "2026-06-24",
+      "channel": "#ai-master",
+      "message_ts": "1782312438.062259",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782312438062259",
+      "path": "flux-reset/chats/ai-master-reset-screenshot-post.md",
+      "description": "Standalone screenshot post referencing https://the-reset.com/."
     },
     {
-      "commit": "dff5c85",
-      "date": "2026-06-26",
-      "message": "Wire war-room channel and execute enrichment queue clearance"
-    },
-    {
-      "commit": "2257de5",
-      "date": "2026-06-26",
-      "message": "Wire War Room SMS alerts to Jonathan + Heaven via GHL tag trigger"
-    },
-    {
-      "commit": "9ab1b17",
-      "date": "2026-06-26",
-      "message": "Switch War Room SMS to GHL only - RingCentral texting disabled"
-    },
-    {
-      "commit": "41906ea",
-      "date": "2026-06-26",
-      "message": "Add full GHL workflow analysis and registry"
-    },
-    {
-      "commit": "5eeaf41",
-      "date": "2026-06-26",
-      "message": "Confirm pipeline accuracy and lock Zapier to war-room only"
-    },
-    {
-      "commit": "1907d86",
-      "date": "2026-06-26",
-      "message": "Reposition war-room as sales hype channel - aggressive posting policy"
-    },
-    {
-      "commit": "4d38a75",
-      "date": "2026-06-26",
-      "message": "Heaven triple-notify on every war room update: SMS + email + Slack DM"
-    },
-    {
-      "commit": "5f07517",
-      "date": "2026-06-26",
-      "message": "Jonathan triple-notify: SMS + email + Slack DM on every update"
-    },
-    {
-      "commit": "e189143",
-      "date": "2026-06-26",
-      "message": "Enable Cursor-owned deal-hunter B2B lead gen automation"
-    },
-    {
-      "commit": "d667e17",
-      "date": "2026-06-26",
-      "message": "Add canonical proposal template memory (Reliable Roofer gold standard)"
-    },
-    {
-      "commit": "df5bd3b",
-      "date": "2026-06-27",
-      "message": "Integrate all flux-web chats into unified context layer"
-    },
-    {
-      "commit": "235dc0b",
-      "date": "2026-06-27",
-      "message": "Add step-by-step automation setup guide for Cursor Automations"
-    },
-    {
-      "commit": "6acfba2",
-      "date": "2026-06-27",
-      "message": "Mark main merged; add copy-paste automation prompts for Cursor Automations UI"
-    },
-    {
-      "commit": "7648a01",
-      "date": "2026-06-27",
-      "message": "War-room only: monster sales hype mode, no Slack DMs, simple guide for Jonathan"
+      "id": "reset-packaging-thread",
+      "type": "thread",
+      "date": "2026-06-28",
+      "channel": "#ai-master",
+      "message_ts": "1782671760.151449",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782671760151449?thread_ts=1782671760.151449&cid=C0BAP014AQ7",
+      "path": "flux-reset/chats/ai-master-reset-packaging-thread.md",
+      "description": "Request to collect existing Reset chats into a repo named flux-reset, including the clarification that this is for The Reset website / Reset Social Club."
     }
+  ],
+  "key_observations": [
+    "The Reset already appears in Slack as a website at https://the-reset.com/.",
+    "A June 24 message states the website was being worked on locally as a desktop app at that time.",
+    "The June 28 clarification explicitly ties the packaged chats to The Reset website and The Reset Social Club."
   ]
 }

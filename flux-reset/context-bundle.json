@@ -1,402 +1,123 @@
 {
   "package_name": "flux-reset",
-  "source_repo": "flux-web",
-  "source_branch": "main",
-  "source_commit": "7648a01431c16399d15ca29ed529898b4ddd70f6",
-  "purpose": "Bundled reset-chat memory and live state snapshot from the existing repository artifacts.",
-  "integrated_context": {
-    "version": "2026-06-26",
-    "purpose": "Single integrated memory for ALL flux-web Cursor chats (cloud, desktop, future sessions). Load this first.",
-    "bootstrap_skill": ".cursor/skills/flux-web-context/SKILL.md",
-    "human_doc": "docs/flux-web/INTEGRATED-CONTEXT.md",
-    "branch": "main",
-    "pr": "https://github.com/fluxopss/flux-web/pull/1 - merged 2026-06-26",
-    "main_merged": true,
-    "chat_threads_integrated": [
-      {
-        "topic": "war_room_automation",
-        "decisions": [
-          "#war-room is sales hype channel",
-          "post aggressively multi-message",
-          "Zapier posts deal ops to war-room only",
-          "never #project-update for deal ops"
-        ]
-      },
-      {
-        "topic": "leadership_notify",
-        "decisions": [
-          "Jonathan + Heaven triple-notify on EVERY war room update",
-          "SMS + Gmail + Slack DM + #war-room",
-          "internal contacts only"
-        ]
-      },
-      {
-        "topic": "sms_delivery",
-        "decisions": [
-          "GHL only for SMS",
-          "RingCentral texting NOT enabled",
-          "War Room SMS Alert workflow MISSING in GHL",
-          "fix: workflow enrollment not tag ping",
-          "blocked until GHL workflow created"
-        ]
-      },
-      {
-        "topic": "ownership_boundaries",
-        "decisions": [
-          "Cursor owns B2B lead gen (deal-hunter)",
-          "GHL owns customer comms + stage workflows",
-          "Comet = GHL UI + browser fallback",
-          "Website owns Stripe checkout",
-          "Never Zapier campaign enroll for customer workflows"
-        ]
-      },
-      {
-        "topic": "lead_gen_automation",
-        "decisions": [
-          "deal-hunter re-enabled",
-          "Mon-Fri 7 AM + Sat St Lucie",
-          "25 leads/run, pitch top 5",
-          "first hunt FLA-2026-107 pitched"
-        ]
-      },
-      {
-        "topic": "proposal_standard",
-        "decisions": [
-          "reliable_roofer_dedicated.html is gold standard",
-          "6-slide HTML deck with ROI modeling",
-          "personalize per client on pitch"
-        ]
-      },
-      {
-        "topic": "desktop_cursor",
-        "decisions": [
-          "Desktop for GHL UI + local files",
-          "Cloud for autopilot hunt/close/audit",
-          "handoff prompt in INTEGRATED-CONTEXT.md"
-        ]
-      },
-      {
-        "topic": "pipeline_lock",
-        "decisions": [
-          "FLA-2026-102 through 106 DO NOT re-pitch",
-          "wf_03 running on pitched batch",
-          "Stripe 0/6 paid as of last verify"
-        ]
-      }
-    ],
-    "leadership": {
-      "jonathan": {
-        "name": "Jonathan Augusto",
-        "role": "CEO",
-        "email": "jonathan@fluxlab.agency",
-        "phone_e164": "+17728674562",
-        "slack_user_id": "U0ATJ7BKGT1",
-        "ghl_contact_id": "qhGUDsW47iLWg8vscFlZ"
-      },
-      "heaven": {
-        "name": "Heaven Yeager",
-        "role": "COO",
-        "email": "heaven@fluxlab.agency",
-        "phone_e164": "+17727754860",
-        "slack_user_id": "U0BD0RJ9DJ5",
-        "ghl_contact_id": "IfYpm9qp5m1NWYBTCpB4"
-      }
-    },
-    "slack_channels": {
-      "war_room": {
-        "id": "C0BDLF5JUQ4",
-        "name": "#war-room",
-        "use": "ALL deal ops, hype, hunt reports, audits, digests"
-      },
-      "sold_clients": {
-        "id": "C0AU0M839RD",
-        "name": "#sold-clients",
-        "use": "deal closed + onboarding only"
-      },
-      "project_update": {
-        "id": "C0BB67LRDLZ",
-        "name": "#project-update",
-        "use": "engineering/build ONLY - never deal ops"
-      },
-      "company_data": {
-        "id": "C0BANTREPPH",
-        "name": "#company-data",
-        "use": "data ops - not deal machine default"
-      },
-      "ai_master": {
-        "id": "C0BAP014AQ7",
-        "name": "#ai-master",
-        "use": "AI config - not deal machine default"
-      }
-    },
-    "blockers": [
-      {
-        "id": "ghl_war_room_sms_workflow",
-        "severity": "high",
-        "status": "open",
-        "fix": "Create War Room SMS Alert in GHL (Contact Added to Workflow trigger)",
-        "handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md",
-        "workaround": "Slack + email alerts live; SMS skipped until workflow ID in config"
-      },
-      {
-        "id": "stripe_pitched_unpaid",
-        "severity": "medium",
-        "status": "watching",
-        "refs": [
-          "FLA-2026-102",
-          "FLA-2026-103",
-          "FLA-2026-104",
-          "FLA-2026-105",
-          "FLA-2026-106",
-          "FLA-2026-107"
-        ],
-        "fix": "GHL wf_03/wf_08 follow-up + stripe-close-verifier every 30 min"
-      }
-    ],
-    "live_state": {
-      "source": "automation/deal-machine-tracker.json",
-      "refresh": "Update tracker after every hunt, pitch, or close",
-      "pitched_active": 6,
-      "next_contract_ref": "FLA-2026-108",
-      "leads_in_ghl": 53,
-      "revenue_one_time_potential": 5997,
-      "revenue_mrr_potential": 3985
-    },
-    "config_index": {
-      "canonical": "config/flux-ops-canonical.json",
-      "ownership": "config/flow-ownership.json",
-      "war_room_alerts": "config/war-room-alerts.json",
-      "zapier_war_room": "config/zapier-war-room.json",
-      "lead_gen": "config/lead-gen-config.json",
-      "proposal_template": "config/proposal-template-canonical.json",
-      "client_records": "config/client-record-schema.json",
-      "ghl_workflows": "config/ghl-workflows-registry.json",
-      "schedule": "automation/deal-machine-schedule.json",
-      "tracker": "automation/deal-machine-tracker.json"
-    },
-    "skills_index": {
-      "bootstrap": "flux-web-context",
-      "lead_gen": "deal-hunter",
-      "orchestrator": "deal-orchestrator",
-      "war_room": "war-room",
-      "war_room_alert": "war-room-alert",
-      "stripe_close": "ghl-stripe-close",
-      "fulfillment": "client-fulfillment"
-    },
-    "rules_index": {
-      "deal_machine": ".cursor/rules/flux-deal-machine.mdc",
-      "integrated": ".cursor/rules/flux-web-integrated.mdc"
-    },
-    "docs_index": {
-      "setup_guide": "docs/flux-web/SETUP-GUIDE.md",
-      "playbook": "docs/deal-machine/PLAYBOOK.md",
-      "pipeline": "docs/deal-machine/PIPELINE-CONFIRMED.md",
-      "boundaries": "docs/deal-machine/FLOW-BOUNDARIES.md",
-      "ghl_workflows": "docs/deal-machine/GHL-WORKFLOW-ANALYSIS.md",
-      "proposal": "docs/deal-machine/PROPOSAL-TEMPLATE.md",
-      "sms_setup": "docs/deal-machine/SMS-SETUP.md",
-      "sms_handoff": "docs/deal-machine/SMS-COMET-HANDOFF.md"
-    },
-    "local_files_windows": {
-      "note": "Desktop Cursor only - not in repo",
-      "master_knowledge": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-labs-master-ai-knowledge-file.txt",
-      "pricing_pdf": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-labs-complete-pricing.pdf",
-      "competitive": "C:\\Users\\jonat\\OneDrive\\Documents\\flux-competitive-breakdown.jsx"
-    },
-    "golden_rules": [
-      "Read config/flux-web-integrated-context.json + automation/deal-machine-tracker.json before any action",
-      "GHL stage change fires workflows - never Zapier campaign for customers",
-      "Exception: internal War Room SMS workflow only",
-      "Do not re-pitch FLA-2026-102 through 106",
-      "Post deal ops to #war-room only",
-      "Triple-notify Jonathan + Heaven on every war room update",
-      "Proposals follow reliable-roofer 6-slide template",
-      "Cursor deal-hunter owns B2B lead gen",
-      "Stripe confirms close - verify before Contract Signed"
-    ]
+  "project": {
+    "name": "The Reset",
+    "brand_name": "The Reset Social Club",
+    "website": "https://the-reset.com/"
   },
-  "tracker_snapshot": {
-    "version": "2026-06-26",
-    "last_updated": "2026-06-26T20:12:00-04:00",
-    "war_room_channel": "C0BDLF5JUQ4",
-    "overlap_policy": "Cursor owns B2B lead gen via deal-hunter",
-    "totals": {
-      "leads_in_ghl": 53,
-      "enrichment_queue_pending": 0,
-      "enrichment_queue_cleared": 6,
-      "pitched_active": 6,
-      "active_clients": 12,
-      "deals_closed": 1,
-      "revenue_one_time_potential": 5997,
-      "revenue_mrr_potential": 3985,
-      "new_leads_added_today": 4,
-      "deal_hunter_runs_today": 1
-    },
-    "last_contract_ref": "FLA-2026-107",
-    "next_contract_ref": "FLA-2026-108",
-    "deal_hunter_batch_2026_06_26": {
-      "niche": "HVAC",
-      "geo": "Brevard County FL",
-      "found": 4,
-      "intaked": 4,
-      "qualified": 3,
-      "pitched": 1,
-      "leads": [
+  "source": {
+    "platform": "Slack",
+    "channel_name": "#ai-master",
+    "channel_id": "C0BAP014AQ7",
+    "packaged_at": "2026-06-28",
+    "workspace_repo": "flux-web",
+    "workspace_branch": "cursor/flux-reset-e4c3"
+  },
+  "threads": [
+    {
+      "id": "reset-screenshot-request-thread",
+      "date": "2026-06-24",
+      "message_ts": "1782312239.155369",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782312239155369?thread_ts=1782312239.155369&cid=C0BAP014AQ7",
+      "messages": [
         {
-          "company": "Gabbard Air LLC",
-          "email": "gabbardair@yahoo.com",
-          "score": 88,
-          "stage": "new_lead",
-          "ghl_contact_id": "wqvOFPotonV8EzPJhZSw"
+          "role": "parent",
+          "from": "Flux Labs Admin <jonathan@fluxlab.agency>",
+          "user_id": "U0ATJ7BKGT1",
+          "time": "2026-06-24 10:43:59 EDT",
+          "message_ts": "1782312239.155369",
+          "text": "<@U0BCGFJCVL1|Flux> post a screenshot of the website \"The Reset\""
         },
         {
-          "company": "Competitive Air and Heat",
-          "email": "admin@competitiveairandheat.com",
-          "score": 90,
-          "stage": "proposal_sent",
-          "fla_ref": "FLA-2026-107",
-          "ghl_contact_id": "hVQVfkRsdxaZuluMd9Dy"
-        },
-        {
-          "company": "Erwin Air and Heat of Brevard",
-          "email": "erwinairandheat@gmail.com",
-          "score": 87,
-          "stage": "qualified",
-          "ghl_contact_id": "PIEgj1nfY2ZCk1iK8RKx"
-        },
-        {
-          "company": "Brevard Cooling and Heating Inc",
-          "email": "info@brevardcooling.com",
-          "score": 86,
-          "stage": "qualified",
-          "ghl_contact_id": "vhQdOw5wrmVEoEN9tnnY"
+          "role": "reply",
+          "from": "Flux",
+          "user_id": "U0BCGFJCVL1",
+          "time": "2026-06-24 10:47:27 EDT",
+          "message_ts": "1782312447.960379",
+          "text": "Posted a screenshot of The Reset in <#C0BAP014AQ7|ai-master>.\n\nSlack message: <https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782312438062259>\n*Repository:* `TopDevCorp/fluxops`"
         }
       ]
     },
-    "enrichment_queue_cleared": [
-      {
-        "company": "ECOR Industries",
-        "score": 89,
-        "phone": "+13212042084",
-        "email": "info@ecorpestcontrol.com",
-        "ghl_stage": "new_lead",
-        "status": "fulfillment_complete"
-      },
-      {
-        "company": "Arnold Air Conditioning",
-        "score": 86,
-        "phone": "+17722131550",
-        "email": "info@arnoldair.com",
-        "ghl_stage": "contact_exists",
-        "status": "fulfillment_complete"
-      },
-      {
-        "company": "Central Brevard Air & Heat",
-        "score": 83,
-        "phone": "+13216156429",
-        "email": "info@centralbrevardair.com",
-        "ghl_stage": "new_lead",
-        "status": "fulfillment_complete"
-      },
-      {
-        "company": "K & Y Carpet One",
-        "score": 84,
-        "phone": "+13217250021",
-        "email": "info@kandycarpetonemelbourne.com",
-        "ghl_stage": "new_lead",
-        "status": "fulfillment_complete"
-      },
-      {
-        "company": "Bluecat Carpet Cleaning",
-        "score": 80,
-        "phone": "+17725305121",
-        "email": "cleancat07@gmail.com",
-        "ghl_stage": "contact_exists",
-        "status": "fulfillment_complete"
-      },
-      {
-        "company": "Outdoor Kitchens Port St. Lucie",
-        "score": 79,
-        "phone": "+17722339089",
-        "email": "info@outdoorkitchensportstlucie.com",
-        "ghl_stage": "contact_exists",
-        "status": "fulfillment_complete"
-      }
-    ],
-    "pitched_deals": [
-      {
-        "ref": "FLA-2026-102",
-        "company": "Jacquin & Sons Construction",
-        "offer": "flux_ops_growth",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "DO_NOT_TOUCH"
-      },
-      {
-        "ref": "FLA-2026-103",
-        "company": "Rooftop Roofing Inc",
-        "offer": "pro_site_gbp_bundle",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "DO_NOT_TOUCH"
-      },
-      {
-        "ref": "FLA-2026-104",
-        "company": "Complete Air and Heat Inc",
-        "offer": "flux_ops_growth",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "DO_NOT_TOUCH"
-      },
-      {
-        "ref": "FLA-2026-105",
-        "company": "Fitzpatrick Plumbing Inc",
-        "offer": "flux_ops_growth",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "DO_NOT_TOUCH"
-      },
-      {
-        "ref": "FLA-2026-106",
-        "company": "Packard Roofing",
-        "offer": "pro_site_gbp_bundle",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "DO_NOT_TOUCH"
-      },
-      {
-        "ref": "FLA-2026-107",
-        "company": "Competitive Air and Heat",
-        "offer": "flux_ops_growth",
-        "stage": "proposal_sent",
-        "stripe": "pending",
-        "cursor_action": "deal_hunter_pitched",
-        "source": "deal_hunter_2026-06-26"
-      }
-    ],
-    "runs": [
-      {
-        "timestamp": "2026-06-26T20:12:00-04:00",
-        "agent_id": "deal-hunter-daily",
-        "skill": "deal-hunter",
-        "mode": "hunt",
-        "leads_found": 4,
-        "leads_intaked": 4,
-        "qualified": 3,
-        "pitched": 1,
-        "revenue_at_stake": 1694,
-        "status": "success"
-      },
-      {
-        "timestamp": "2026-06-26T17:58:00-04:00",
-        "agent_id": "war-room-kickoff",
-        "skill": "deal-orchestrator",
-        "mode": "enrichment_queue",
-        "leads_processed": 6,
-        "deals_advanced": 3,
-        "revenue_at_stake": 8288,
-        "status": "success"
-      }
-    ]
-  }
+    {
+      "id": "reset-local-desktop-thread",
+      "date": "2026-06-24",
+      "message_ts": "1782312392.925759",
+      "permalink": null,
+      "messages": [
+        {
+          "role": "parent",
+          "from": "Flux Labs Admin <jonathan@fluxlab.agency>",
+          "user_id": "U0ATJ7BKGT1",
+          "time": "2026-06-24 10:46:32 EDT",
+          "message_ts": "1782312392.925759",
+          "text": "<@U0BCGFJCVL1|Flux> the website is local desktop app being worked on right now"
+        },
+        {
+          "role": "reply",
+          "from": "Flux",
+          "user_id": "U0BCGFJCVL1",
+          "time": "2026-06-24 10:47:09 EDT",
+          "message_ts": "1782312429.755049",
+          "text": "Understood - I'll treat it as a local desktop app that's currently under active development, not a deployed website. If you want, I can inspect the repo and help with desktop-app-specific changes.\n*Repository:* `TopDevCorp/fluxops`"
+        }
+      ]
+    },
+    {
+      "id": "reset-packaging-thread",
+      "date": "2026-06-28",
+      "message_ts": "1782671760.151449",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782671760151449?thread_ts=1782671760.151449&cid=C0BAP014AQ7",
+      "messages": [
+        {
+          "role": "parent",
+          "from": "Flux Labs Admin <jonathan@fluxlab.agency>",
+          "user_id": "U0ATJ7BKGT1",
+          "time": "2026-06-28 14:36:00 EDT",
+          "message_ts": "1782671760.151449",
+          "text": "<@U0BCGFJCVL1|Flux> Collect the reset chats that currently exist, go into it and pack ait all into a repo called the flux-reset"
+        },
+        {
+          "role": "reply",
+          "from": "Flux",
+          "user_id": "U0BCGFJCVL1",
+          "time": "2026-06-28 14:41:04 EDT",
+          "message_ts": "1782672064.634779",
+          "text": "Packed the existing reset-chat material into `flux-reset/`.\n\nWhat's there:\n- `flux-reset/README.md` - package overview and source info\n- `flux-reset/context-bundle.json` - bundled machine-readable context + tracker snapshot\n- `flux-reset/reset-chat-index.json` - manifest, included reset topics, commit timeline\n- `flux-reset/FLUX-RESET-PACK.md` - human-readable export\n- root `README.md` now links to `flux-reset/`\n\nImportant note:\n- The repo did *not* contain raw per-chat transcript exports.\n- What I packaged is the durable reset context that actually exists here: integrated chat memory, live tracker state, and provenance from git history.\n\nValidation:\n- Verified both new JSON files parse successfully with `python3`.\n\nIf you want, I can take the next step and reshape `flux-reset/` into a fully standalone repository structure rather than a packaged bundle inside the current repo.\n*Repository:* `fluxopss/flux-web`"
+        },
+        {
+          "role": "reply",
+          "from": "Flux Labs Admin <jonathan@fluxlab.agency>",
+          "user_id": "U0ATJ7BKGT1",
+          "time": "2026-06-28 14:41:51 EDT",
+          "message_ts": "1782672111.666319",
+          "text": "This is for The Reset website. The reset social club"
+        },
+        {
+          "role": "reply",
+          "from": "Flux",
+          "user_id": "U0BCGFJCVL1",
+          "time": "2026-06-28 14:42:19 EDT",
+          "message_ts": "1782672139.693949",
+          "text": "I've isolated the two actual Reset-related chat threads in Slack. I'm reading those threads directly now so the package can include the concrete message history rather than just search hits."
+        }
+      ]
+    }
+  ],
+  "standalone_messages": [
+    {
+      "id": "reset-screenshot-post",
+      "date": "2026-06-24",
+      "time": "2026-06-24 10:47:18 EDT",
+      "message_ts": "1782312438.062259",
+      "permalink": "https://fluxlabz.slack.com/archives/C0BAP014AQ7/p1782312438062259",
+      "from": "Flux Labs Admin <jonathan@fluxlab.agency>",
+      "user_id": "U0ATJ7BKGT1",
+      "text": "Screenshot of The Reset (<https://the-reset.com/>)\nhttps://image.thum.io/get/width/1200/https://the-reset.com/|the-reset.com/)_https:/.../the-reset.com>\n*Sent using* <@U0BCGFJCVL1|Flux>"
+    }
+  ],
+  "derived_notes": [
+    "The Reset is explicitly tied to https://the-reset.com/ in the collected chats.",
+    "One June 24 thread indicates the project was being treated as a local desktop app under active development.",
+    "The June 28 clarification establishes that the intended repo package is for The Reset website and The Reset Social Club."
+  ]
 }

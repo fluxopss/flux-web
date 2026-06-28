@@ -1,32 +1,33 @@
 # flux-reset
 
-`flux-reset` is a packaged snapshot of the reset-chat material that already exists inside this workspace.
+`flux-reset` is a packaged chat bundle for **The Reset** / **The Reset Social Club**.
 
-## What was collected
+## What this package contains
 
-This package pulls together the durable chat-memory artifacts that were already tracked in `flux-web`:
+This folder collects the Reset-related chats that currently exist and packages them into a reusable repo-style bundle.
 
-- integrated chat memory from `config/flux-web-integrated-context.json`
-- human-readable context from `docs/flux-web/INTEGRATED-CONTEXT.md`
-- live state from `automation/deal-machine-tracker.json`
-- provenance from the git commit timeline that built the current memory layer
+Current sources collected:
 
-## What is inside
+- Slack channel `#ai-master` (`C0BAP014AQ7`)
+- Reset website reference: `https://the-reset.com/`
 
-- `context-bundle.json` - machine-readable bundle of integrated context plus tracker state
-- `reset-chat-index.json` - package manifest, included topics, and source commit timeline
-- `FLUX-RESET-PACK.md` - human-readable export of the current reset context
+## Included records
 
-## Important limitation
+The package currently contains these Reset artifacts:
 
-This repo did **not** contain raw per-chat transcript exports. The durable source that currently exists is the integrated context layer plus the related docs and state files. This package preserves that material without pretending the missing raw transcripts were available.
+1. `2026-06-24` screenshot request thread for **The Reset**
+2. `2026-06-24` local-development status thread noting the site was being worked on as a local desktop app
+3. `2026-06-24` standalone screenshot post for `the-reset.com`
+4. `2026-06-28` packaging thread requesting that the Reset chats be collected into `flux-reset`
+5. `2026-06-28` clarification that the target is **The Reset website** / **The Reset Social Club**
 
-## Source
+## Files
 
-- Source repo: `flux-web`
-- Source branch at packaging time: `main`
-- Source commit at packaging time: `7648a01431c16399d15ca29ed529898b4ddd70f6`
+- `context-bundle.json` - machine-readable export of the collected Reset chats
+- `reset-chat-index.json` - manifest, source metadata, and packaged item list
+- `FLUX-RESET-PACK.md` - human-readable summary of the Reset chat collection
+- `chats/` - chat-by-chat markdown exports
 
-## Next move
+## Important boundary
 
-If you want `flux-reset` promoted into its own standalone repository later, this folder is now structured to be lifted out directly.
+The current workspace repo is still `flux-web`. This package does **not** turn the whole workspace into The Reset website repo; it packages the Reset-related chat material that currently exists so it can be lifted into a standalone `flux-reset` repository later.
